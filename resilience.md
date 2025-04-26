@@ -12,7 +12,7 @@ After joining Twitter in 2012 as one of the first Site Reliability Engineers (SR
 
 In 2019 I joined [SignalFx](https://www.signalfx.com), later [acquired by Splunk](https://www.signalfx.com/blog/signalfx-signs-definitive-agreement-to-be-acquired-by-splunk/) and researched resilience engineering and it's precursors to inform the design of products, organizations, and tooling. In 2021 I joined [Jeli](https://www.jeli.io), later acquired by [PagerDuty](https://www.pagerduty.com), to work on [incident analysis](https://www.jeli.io/howie-the-post-incident-guide/) so that organizations can more easily learn from their work.
 
-Most recently I founded Oilcan and created [Hotpot](https://www.hotpot.works).
+Most recently I co-founded Oilcan and created [Hotpot](https://www.hotpot.works).
 
 # Writing
 
@@ -31,6 +31,18 @@ Most recently I founded Oilcan and created [Hotpot](https://www.hotpot.works).
 <iframe width="560" height="315" src="https://www.youtube.com/embed/JSiESJwRmzg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 At RubyConf 2021 I spoke about finding inspiration for resilience in other industries and settings.
+
+## DevOps Days Denver 2024
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/6KqW7rQgrRk?si=HIyWIe2FGnSvM_Kt" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+In 2024 I spoke at DevOps Days Denver about on-call needs a rethink.
+
+## SRECon Americas 2025
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/NWcXm9wnH-U?si=hIN3TGbP-Qxp06Fc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+Early in 2025 we completed research at Hotpot that showed organizations are not set up to support on-call work so I spoke about it at SRECon Americas.
 
 # Podcasts
 
