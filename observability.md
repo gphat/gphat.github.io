@@ -4,9 +4,9 @@ title: Observability
 permalink: /observability/
 ---
 
-Through my career as a software engineer, manager and executive common theme of observability.
+Through my career as a software engineer, manager, and executive, observability has been a constant theme.
 
-[Observability](https://en.wikipedia.org/wiki/Observability) is more than monitoring and charts. **Observability is a collection of techniques and tools that aim to improve understanding of complex systems. Highly observable systems should have improved ergonomics for operators, allowing them to more quickly grasp the impact of changes and the contributors to incidents.** In other words, if you don't have sensors — metrics, logs, etc — that help you understand how your service is working then you can't tell if things are going wrong!
+[Observability](https://en.wikipedia.org/wiki/Observability) is more than monitoring and charts.** It's a collection of techniques and tools that deepen our understanding of complex systems — not just when things go wrong, but all the time.** The goal is to give operators genuine insight into how a system behaves: what changed, what's slow, what's correlated. Good observability improves the ergonomics of that understanding, making systems less surprising to the people who run them.
 
 # Open Source Work
 
@@ -22,7 +22,11 @@ After joining Twitter in 2012 I quickly found my calling in the Observability te
 
 Upon joining Stripe in 2015 I created and led an observability team and worked to change Stripe's culture such that observing our systems was a core concern. I led the creation of an entirely new observability stack with minimal interruption, managed and changed vendors a few times, and contributed to large improvements in reliability and confidence at Stripe through both observability tooling and incident process.
 
-In 2019 I joined [SignalFx](https://www.signalfx.com) as a Technical Director. My role is a mix of advocacy, customer engagement, and product improvement. Late in 2019 [SignalFx was acquired by Splunk](https://www.signalfx.com/blog/signalfx-signs-definitive-agreement-to-be-acquired-by-splunk/).
+In 2019 I joined [SignalFx](https://www.signalfx.com) as a Technical Director, functioning as a Field CTO. My role was a mix of advocacy, customer engagement, and product improvement. Late in 2019 [SignalFx was acquired by Splunk](https://www.signalfx.com/blog/signalfx-signs-definitive-agreement-to-be-acquired-by-splunk/).
+
+After Splunk I spent time at [Jeli](https://jeli.io), working on incident analysis and learning. From there I founded Oilcan, where I spent several years building ergonomic on-call tooling aimed at making the lives of on-call engineers less miserable.
+
+I'm now at [Airbnb](https://airbnb.com), working on infrastructure engineering. My focus includes large-scale reliability initiatives like SLOs — building the systems and culture that let engineers understand and trust what they've built.
 
 I'm often asked by investors to discuss my thoughts of new or existing monitoring products, and I enjoy speaking about these tools with others both to learn and provide my thoughts. I've also participated on customer advisory boards, representing my engineering teammates and learning challenges from vendors.
 

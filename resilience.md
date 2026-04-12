@@ -8,11 +8,11 @@ Through a career spanning over twenty years at ISPs, eCommerce shops, and techno
 
 # Professional Work
 
-After joining Twitter in 2012 as one of the first Site Reliability Engineers (SRE) I leaned into [observability](http://onemogin.com/observability/). While I still consider this work important, I came to the conclusion that **charts don't solve problems, people do.** This led me to invest more in learning about resilience engineering and adaptive capacity.
+After years focused on observability, I came to the conclusion that **charts don't solve problems, people do.** This led me to invest more in resilience engineering and adaptive capacity.
 
-In 2019 I joined [SignalFx](https://www.signalfx.com), later [acquired by Splunk](https://www.signalfx.com/blog/signalfx-signs-definitive-agreement-to-be-acquired-by-splunk/) and researched resilience engineering and it's precursors to inform the design of products, organizations, and tooling. In 2021 I joined [Jeli](https://www.jeli.io), later acquired by [PagerDuty](https://www.pagerduty.com), to work on [incident analysis](https://www.jeli.io/howie-the-post-incident-guide/) so that organizations can more easily learn from their work.
+In 2019 I joined [SignalFx](https://www.signalfx.com), later [acquired by Splunk](https://www.signalfx.com/blog/signalfx-signs-definitive-agreement-to-be-acquired-by-splunk/), where I researched resilience engineering and its precursors to inform the design of products, organizations, and tooling. In 2021 I joined [Jeli](https://www.jeli.io), later acquired by [PagerDuty](https://www.pagerduty.com), to work on [incident analysis](https://www.jeli.io/howie-the-post-incident-guide/) so that organizations can more easily learn from their work.
 
-I spent a few fulfulling years working on my own startup before joining Airbnb to continue learning about building resilience. 
+I spent a few fulfilling years building my own startup around ergonomic on-call tooling before joining Airbnb, where I've continued that thread working on large-scale reliability initiatives — most notably SLOs — helping engineers understand and trust the systems they build.
 
 # Writing
 
