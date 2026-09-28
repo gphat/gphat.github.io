@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Kapell improves"
+title:  "Kapell Improves: Building Stuff in 2026"
 date:   2026-09-28 07:51:00
 categories: music appstore
 draft: false
