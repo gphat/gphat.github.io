@@ -241,7 +241,9 @@ a:has(img):hover { background: none; }
    out of it on a footer-coloured tile so it stays legible. */
 .site-footer .social a { display: inline-flex; padding: 0.4rem; background: var(--footer-bg); }
 /* On a narrow footer the line wraps into the screen too; same tile. */
-.site-footer .wrap > span { background: var(--footer-bg); box-shadow: 0 0 0 0.3rem var(--footer-bg); }
+.site-footer .wrap > span, .site-footer .colophon { background: var(--footer-bg); box-shadow: 0 0 0 0.3rem var(--footer-bg); }
+/* Colophon: its own row under the sign-off, quieter. */
+.site-footer .colophon { flex-basis: 100%; max-width: var(--measure); margin: 0; font-size: 0.8125rem; line-height: 1.5; color: oklch(0.97 0.004 130 / 0.7); }
 
 /* 6. Post index ----------------------------------------------------------- */
 .intro { display: grid; grid-template-columns: minmax(0, 1fr) 13rem; gap: var(--s-6); align-items: end; padding-top: var(--s-7); }
