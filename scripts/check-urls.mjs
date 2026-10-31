@@ -63,7 +63,10 @@ for (const file of htmlFiles(DIST)) {
     const path = ref.replace(sameSite, "") || "/";
     if (!path.startsWith("/") || path.startsWith("//") || isProjectSite(path)) continue;
     if (!fileFor(path)) failures.push(`dead link in ${file.slice(DIST.length)}: ${ref}`);
-  }
+  }  // Every page's link-preview card exists (src/pages/og/).
+  const card = html.match(/property="og:image" content="([^"]+)"/)?.[1];
+  if (!card) failures.push(`no og:image in ${file.slice(DIST.length)}`);
+  else if (!fileFor(card.replace(sameSite, ""))) failures.push(`missing card in ${file.slice(DIST.length)}: ${card}`);
 }
 
 if (failures.length) {
@@ -71,4 +74,4 @@ if (failures.length) {
   console.error(`\n${failures.length} problem(s)`);
   process.exit(1);
 }
-console.log(`ok: ${expected.length} old URLs present, ${guids.length} feed guids valid, internal links resolve`);
+console.log(`ok: ${expected.length} old URLs present, ${guids.length} feed guids valid, internal links resolve, every page has its card`);

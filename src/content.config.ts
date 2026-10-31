@@ -15,7 +15,8 @@ const posts = defineCollection({
       .transform((s) => s.split(/\s+/).filter(Boolean)),
     // Shown on the index and used as the meta description.
     summary: z.string().optional(),
-    // Link-preview image, a path under public/.
+    // Jekyll-era link-preview image. Unused: every page now gets a card drawn
+    // in the site's style (src/lib/og.ts).
     image: z.string().optional(),
     draft: z.boolean().default(false),
     // A multi-part series; the post layout shows the series box.

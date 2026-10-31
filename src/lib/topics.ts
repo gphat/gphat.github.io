@@ -29,3 +29,15 @@ export const SECTIONS = {
 } satisfies Record<string, Section>;
 
 export type SectionKey = keyof typeof SECTIONS;
+
+// The topic a post belongs to, by its categories; undefined for the rest.
+const CATEGORY_TOPICS: Record<string, keyof typeof TOPICS> = {
+  observability: "observability",
+  monitoring: "observability",
+  automation: "resilience",
+  music: "music",
+};
+
+export function categoryTopic(categories: string[]): keyof typeof TOPICS | undefined {
+  return categories.map((c) => CATEGORY_TOPICS[c]).find(Boolean);
+}
