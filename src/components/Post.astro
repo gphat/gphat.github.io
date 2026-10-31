@@ -37,7 +37,7 @@ const fmt = date.toLocaleDateString("en-US", { month: "long", day: "numeric", ye
 
       <footer class="post-end">
         {series && <Series {...series} currentUrl={url} position="bottom" />}
-        <div class="post-actions">
+        <div class="post-actions" data-md-skip>
           <a href={feedbackUrl}><Icon name="message-square" size={15} /> Leave me feedback</a>
           <a class="rss-cta" href="/feed.xml"><Icon name="rss" size={15} /> Like what you're reading? Subscribe via RSS</a>
         </div>

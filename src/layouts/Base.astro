@@ -25,6 +25,12 @@ const imageAlt = title ?? SITE_TITLE;
 const nav = Object.values(SECTIONS).map((t) => ({ href: t.href, label: t.label, topic: t.color }));
 const isCurrent = (href: string) => path === href || path.startsWith(href + "/");
 const year = new Date().getFullYear();
+
+// Every page but the 404 has a Markdown twin, written after the build by
+// src/integrations/markdownTwins.mjs: foo.html → foo.md, a directory → index.md.
+const markdownTwin = path.startsWith("/404")
+  ? undefined
+  : path.endsWith(".html") ? path.replace(/\.html$/, ".md") : path.replace(/\/?$/, "/") + "index.md";
 ---
 <!doctype html>
 <html lang="en">
@@ -59,6 +65,7 @@ const year = new Date().getFullYear();
     <link rel="alternate icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="alternate" type="application/rss+xml" title={SITE_TITLE} href="/feed.xml" />
+    {markdownTwin && <link rel="alternate" type="text/markdown" href={markdownTwin} />}
 
     <!-- Link previews (Slack, iMessage, Bluesky, X, …). -->
     <meta property="og:site_name" content={SITE_TITLE} />

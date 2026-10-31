@@ -3,6 +3,7 @@ import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import { satteri } from "@astrojs/markdown-satteri";
 import { headingAnchors } from "./src/lib/headingAnchors.mjs";
+import markdownTwins from "./src/integrations/markdownTwins.mjs";
 
 // https://astro.build/config
 export default defineConfig({
@@ -28,5 +29,5 @@ export default defineConfig({
       wrap: false,
     },
   },
-  integrations: [sitemap()],
+  integrations: [sitemap(), markdownTwins()],
 });

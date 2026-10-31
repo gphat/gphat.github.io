@@ -20,6 +20,7 @@
     "astro": "7.4.0",
     "github-slugger": "2.0.0",
     "satori": "0.33.5",
+    "turndown": "7.2.4",
     "wawoff2": "2.0.1"
   }
 }

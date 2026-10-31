@@ -11,7 +11,8 @@ interface Props extends Series {
 const { name, description, note, parts, currentUrl, position = "top" } = Astro.props;
 const idx = parts.findIndex((p) => p.url === currentUrl);
 ---
-<aside class:list={["series", "series--" + position]} aria-label={name + " series"}>
+<!-- The Markdown twin keeps the top box only (see markdownTwins.mjs). -->
+<aside class:list={["series", "series--" + position]} aria-label={name + " series"} data-md-skip={position === "bottom" ? "" : undefined}>
   <p class="series__head label" style="color: var(--ink); font-style: normal">
     <Icon name="layers" size={14} /> {name}{idx >= 0 && " · part " + (idx + 1) + " of " + parts.length}
   </p>
