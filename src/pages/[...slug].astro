@@ -1,0 +1,40 @@
+---
+import { render } from "astro:content";
+import Base from "../layouts/Base.astro";
+import Series from "../components/Series.astro";
+import { fmtDate, getPosts, postPath, postSlug } from "../lib/posts";
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({ params: { slug: postSlug(post) }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { data } = post;
+const { Content } = await render(post);
+---
+<Base title={data.title} description={data.summary} image={data.image} path={postPath(post)}>
+  <article class="prose prose-neutral lg:prose-lg dark:prose-invert prose-a:text-rose-500">
+    <header>
+      <h1>{data.title}</h1>
+      <time class="text-sm text-gray-400" datetime={data.date.toISOString()}>{fmtDate(data.date)}</time>
+    </header>
+
+    {data.series && <Series series={data.series} />}
+
+    <Content />
+
+    {data.series && <Series series={data.series} />}
+
+    <p>
+      <a href="https://github.com/gphat/feedback/issues/new" class="inline-flex items-center gap-x-1.5 rounded-md bg-rose-500 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-rose-600">
+        Leave Me Feedback!
+      </a>
+    </p>
+
+    <div class="p-3 shadow-md rounded-md border border-gray-200 dark:border-zinc-700">
+      <div class="font-semibold">Like what you are reading?</div>
+      <p class="text-sm">Subscribe <a href="/feed.xml">via RSS!</a></p>
+    </div>
+  </article>
+</Base>

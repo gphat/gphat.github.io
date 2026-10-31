@@ -1,0 +1,16 @@
+---
+// /page2/ onward. Page 1 is src/pages/index.astro.
+import PostIndex from "../../components/PostIndex.astro";
+import { getPosts, PER_PAGE } from "../../lib/posts";
+
+export async function getStaticPaths() {
+  const totalPages = Math.ceil((await getPosts()).length / PER_PAGE);
+  return Array.from({ length: totalPages - 1 }, (_, i) => ({
+    params: { pageDir: `page${i + 2}` },
+    props: { page: i + 2 },
+  }));
+}
+
+const { page } = Astro.props;
+---
+<PostIndex page={page} />

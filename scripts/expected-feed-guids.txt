@@ -1,0 +1,10 @@
+http://onemogin.com/music/appstore/kapell-remote.html
+http://onemogin.com/music/appstore/more-music-player.html
+http://onemogin.com/music/appstore/introducing-kapell.html
+http://onemogin.com/automation/improving-automation.html
+http://onemogin.com/automation/alternatives-to-automation.html
+http://onemogin.com/automation/automation-is-hurting-you.html
+http://onemogin.com/observability/dashboards/dashboard-naming-and-organization.html
+http://onemogin.com/observability/dashboards/observability-crash-course.html
+http://onemogin.com/observability/dashboards/practitioners-guide-to-system-dashboard-design-p4.html
+http://onemogin.com/observability/dashboards/practitioners-guide-to-system-dashboard-design-p3.html

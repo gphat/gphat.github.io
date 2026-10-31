@@ -1,3 +1,4 @@
-jekyll serve -P 4001
-npx tailwindcss -i css/input.css -o ./css/main.css --watch
-
+npm install
+npm run dev          # http://localhost:4321
+npm run build        # outputs to ./dist
+npm run check-urls   # after a build: every URL the Jekyll site served must still exist

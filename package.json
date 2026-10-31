@@ -1,6 +1,20 @@
 {
-  "devDependencies": {
-    "@tailwindcss/typography": "^0.5.10",
-    "tailwindcss": "^3.3.5"
+  "name": "onemogin",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "check-urls": "node scripts/check-urls.mjs"
+  },
+  "dependencies": {
+    "@astrojs/rss": "4.0.19",
+    "@astrojs/sitemap": "3.7.4",
+    "astro": "7.4.0"
   }
 }

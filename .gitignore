@@ -1,8 +1,9 @@
-_site
-.sass-cache
-deploy.sh
+# build output
+dist/
+# generated types
+.astro/
 
+# dependencies
 node_modules/
-jspm_modules/
 
-.npm
+.DS_Store
