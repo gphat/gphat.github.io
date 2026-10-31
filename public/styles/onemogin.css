@@ -378,7 +378,7 @@ a:has(img):hover { background: none; }
 .prose li + li { margin-top: 0.35em; }
 .prose li > ul, .prose li > ol { margin-top: 0.35em; }
 
-.prose blockquote { margin: 1.7em 0; padding: 0.7em 0 0; border-top: 3px solid var(--accent); font-size: var(--step-1); line-height: 1.45; font-style: italic; }
+.prose blockquote { margin: 1.7em 0; padding: 0.9em 0 0; border-top: 3px solid var(--accent); font-size: var(--step-1); line-height: 1.45; font-style: italic; }
 .prose blockquote > * + * { margin-top: 0.7em; }
 .prose blockquote p { margin: 0; }
 
@@ -422,7 +422,6 @@ a:has(img):hover { background: none; }
   .has-sidenotes .prose > .sidenote { display: block; float: right; clear: right; width: var(--note-w);
     margin: 0.3em calc(-1 * (var(--note-w) + var(--note-gap))) 1em 0;
     font-size: var(--step--1); line-height: 1.45; font-style: italic; color: var(--ink-2); }
-  .has-sidenotes .prose > .sidenote + * { margin-top: 0; }
   .sidenote p { display: inline; margin: 0; }
   .sidenote__num { font-style: normal; font-weight: 600; color: var(--link); margin-right: 0.25em; }
   .has-sidenotes .footnotes { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
