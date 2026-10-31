@@ -355,10 +355,15 @@ a:has(img):hover { background: none; }
 .prose .anchor svg { width: 1rem; height: 1rem; }
 @media (hover: none), (max-width: 46rem) { .prose .anchor { display: none; } }
 
-/* External links get a small arrow, no markup needed. */
+/* External links get a small arrow, no markup needed. It's a plain inline box
+   holding a word joiner (U+2060), drawn in its padding by the mask. An
+   inline-block would be a line-break opportunity on both sides, letting the
+   punctuation after a link ("Airbnb↗.") wrap onto the next line by itself. */
 .prose a[href^="http"]:not([href*="onemogin.com"]):not(:has(img))::after {
-  content: ""; display: inline-block; width: 0.7em; height: 0.7em; margin-left: 0.12em; vertical-align: 0.02em;
-  background: currentColor; -webkit-mask: url("/icons/arrow-up-right.svg") center / contain no-repeat; mask: url("/icons/arrow-up-right.svg") center / contain no-repeat; }
+  content: "\2060"; padding-left: 0.82em;
+  background: currentColor;
+  -webkit-mask: url("/icons/arrow-up-right.svg") right center / 0.7em 0.7em no-repeat;
+  mask: url("/icons/arrow-up-right.svg") right center / 0.7em 0.7em no-repeat; }
 
 .prose ul, .prose ol { padding-left: 1.4em; }
 .prose ul { list-style: square; }
