@@ -1,25 +1,26 @@
 ---
-// Layout for the Markdown pages under src/pages (About, Observability, Resilience).
-// Frontmatter: title, optional description, optional kicker ("Topic · since 2012"),
-// optional topicBlock ("slate" | "mustard"): a topic page's header is the same
-// colour block and screen as its link on the home page.
+// Layout for the pages under src/pages (About, the topic pages).
+// Frontmatter: title, optional description, optional topic (a key of TOPICS):
+// a topic page's header is the same colour block and screen as its link on
+// the home page.
 import Base from "./Base.astro";
+import { TOPICS, type TopicKey } from "../lib/topics";
 
-const { title, description, kicker, topicBlock } = Astro.props.frontmatter;
+const { title, description, topic: topicKey } = Astro.props.frontmatter;
+const topic = topicKey ? TOPICS[topicKey as TopicKey] : undefined;
 ---
 <Base title={title} description={description}>
-  {topicBlock ? (
+  {topic ? (
     <div class="wrap">
-      <header class:list={["page-header", "page-header--topic", "block", `block--${topicBlock}`]}>
-        <span class="ht ht--topic" aria-hidden="true"></span>
-        {kicker && <span class="label">{kicker}</span>}
+      <header class:list={["page-header", "page-header--topic", "block", `block--${topic.color}`]}>
+        <span class:list={["ht", "ht--topic", `ht--${topic.screen}`]} aria-hidden="true"></span>
+        <span class="label">Topic · since {topic.since}</span>
         <h1 class="t-display title-shadow">{title}</h1>
       </header>
     </div>
   ) : (
     <header class="page-header wrap">
       <span class="ht" aria-hidden="true"></span>
-      {kicker && <span class="label">{kicker}</span>}
       <h1 class="t-display title-shadow">{title}</h1>
     </header>
   )}
@@ -27,5 +28,6 @@ const { title, description, kicker, topicBlock } = Astro.props.frontmatter;
     <div class="page-body prose">
       <slot />
     </div>
+    <slot name="after" />
   </div>
 </Base>

@@ -5,6 +5,7 @@
 import Base from "../layouts/Base.astro";
 import Icon from "./Icon.astro";
 import { fmtDate, getPosts, postPath, PER_PAGE } from "../lib/posts";
+import { TOPICS } from "../lib/topics";
 
 interface Props {
   page: number;
@@ -26,9 +27,9 @@ const list = isFirst ? shown.slice(1) : shown;
   <div class="wrap">
     {isFirst && (
       <section class="intro" aria-label="About this site">
-        <p class="intro__mark t-display title-shadow" aria-label="One Mo' 'Gin">One mo' 'gin<sup aria-hidden="true">1</sup></p>
-        <p class="intro__gloss"><b>1</b> <em>'gin</em>, as in again. One more, again. Say it “one more again.”</p>
-        <p class="intro__blurb">I'm Cory, a senior infrastructure engineer based in Nashville. I build reliable systems and think hard about the product experience around them — because great infra is nothing if nobody can use it.</p>
+        <p class="intro__mark t-display title-shadow" aria-label="One Mo' 'Gin">One mo' 'gin<sup aria-hidden="true">†</sup></p>
+        <p class="intro__gloss"><b>†</b> <em>'gin</em>, as in again. Say it “one more again.”</p>
+        <p class="intro__blurb">I'm Cory, an engineer based in Nashville. I build reliable systems, music players, and other things people use, and I think hard about the experience around them.</p>
       </section>
     )}
 
@@ -64,8 +65,9 @@ const list = isFirst ? shown.slice(1) : shown;
 
     {isFirst && (
       <nav class="topics" aria-label="Topics">
-        <a class="block block--slate" href="/observability"><span class="ht ht--topic" aria-hidden="true"></span><span class="t-head">Observability</span><small>since 2012 →</small></a>
-        <a class="block block--mustard" href="/resilience"><span class="ht ht--topic" aria-hidden="true"></span><span class="t-head">Resilience</span><small>since 2019 →</small></a>
+        {Object.values(TOPICS).map((t) => (
+          <a class={`block block--${t.color}`} href={t.href}><span class={`ht ht--topic ht--${t.screen}`} aria-hidden="true"></span><span class="t-head">{t.label}</span><small>since {t.since} →</small></a>
+        ))}
       </nav>
     )}
   </div>

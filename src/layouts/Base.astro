@@ -2,6 +2,7 @@
 // Base shell: header (wordmark + nav), main slot, footer.
 import Icon from "../components/Icon.astro";
 import { SITE_TITLE, SITE_DESCRIPTION, EMAIL, GITHUB_USERNAME, LINKEDIN_USERNAME, TITLE_IMAGE } from "../consts";
+import { TOPICS } from "../lib/topics";
 
 interface Props {
   title?: string;
@@ -16,9 +17,9 @@ const { title, description, image, path = Astro.url.pathname } = Astro.props;
 const canonical = new URL(path, Astro.site);
 const imageUrl = new URL(image ?? TITLE_IMAGE, Astro.site);
 
-const nav = [
-  { href: "/observability", label: "Observability" },
-  { href: "/resilience", label: "Resilience" },
+// Topic links wear their topic's block colour (see .site-nav a[data-topic]).
+const nav: { href: string; label: string; topic?: string }[] = [
+  ...Object.values(TOPICS).map((t) => ({ href: t.href, label: t.label, topic: t.color })),
   { href: "/about", label: "About" },
 ];
 const isCurrent = (href: string) => path === href || path.startsWith(href + "/");
@@ -79,7 +80,7 @@ const year = new Date().getFullYear();
         <nav class="site-nav" aria-label="Main">
           <ul>
             {nav.map((n) => (
-              <li><a href={n.href} aria-current={isCurrent(n.href) ? "page" : undefined}>{n.label}</a></li>
+              <li><a href={n.href} data-topic={n.topic} aria-current={isCurrent(n.href) ? "page" : undefined}>{n.label}</a></li>
             ))}
           </ul>
           <a class="icon-btn" href="/feed.xml" title="RSS feed"><Icon name="rss" size={16} label="RSS feed" /></a>
@@ -98,7 +99,7 @@ const year = new Date().getFullYear();
     <footer class="site-footer">
       <span class="ht ht--dots ht--reverse" aria-hidden="true"></span>
       <div class="wrap">
-        <span>Field notes on reliable systems, by Cory Watson. &copy; {year}</span>
+        <span>Field notes on systems and sound, by Cory Watson. &copy; {year}</span>
         <ul class="social">
           <li><a href={`mailto:${EMAIL}`}><Icon name="mail" size={18} label="Email" /></a></li>
           <li><a href={`https://github.com/${GITHUB_USERNAME}`}><Icon name="github" size={18} label="GitHub" /></a></li>

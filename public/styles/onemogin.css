@@ -56,7 +56,9 @@
   --ink:        oklch(0.24 0.02 150);     /* text, rules */
   --ink-2:      oklch(0.44 0.015 150);    /* secondary text, dates, captions */
   --rule:       oklch(0.24 0.02 150 / 0.18);
-  --mustard:    oklch(0.78 0.10 95);      /* Resilience, warning callouts */
+  --mustard:    oklch(0.78 0.10 95);      /* warning callouts */
+  --plum:       oklch(0.46 0.06 335);     /* Resilience */
+  --ochre:      oklch(0.72 0.11 70);      /* Music: amber, a VU meter's glow */
   --slate:      oklch(0.56 0.04 245);     /* Observability, info callouts */
   --moss:       oklch(0.60 0.055 135);    /* lead accent (--accent): feature block, title shadow, nav current */
   --accent:     var(--moss);
@@ -100,6 +102,7 @@
     --paper: oklch(0.21 0.014 150); --paper-2: oklch(0.255 0.016 150);
     --ink: oklch(0.92 0.008 130); --ink-2: oklch(0.72 0.012 130); --rule: oklch(0.92 0.008 130 / 0.16);
     --mustard: oklch(0.78 0.10 95); --slate: oklch(0.52 0.045 245); --moss: oklch(0.56 0.055 135);
+    --plum: oklch(0.42 0.06 335); --ochre: oklch(0.68 0.105 70);
     --link: oklch(0.80 0.07 245); --link-wash: oklch(0.56 0.055 135 / 0.3);
     --title-shadow: oklch(0.42 0.05 135); --footer-bg: oklch(0.15 0.012 150);
   }
@@ -109,6 +112,7 @@
   --paper: oklch(0.21 0.014 150); --paper-2: oklch(0.255 0.016 150);
   --ink: oklch(0.92 0.008 130); --ink-2: oklch(0.72 0.012 130); --rule: oklch(0.92 0.008 130 / 0.16);
   --mustard: oklch(0.78 0.10 95); --slate: oklch(0.52 0.045 245); --moss: oklch(0.56 0.055 135);
+    --plum: oklch(0.42 0.06 335); --ochre: oklch(0.68 0.105 70);
   --link: oklch(0.80 0.07 245); --link-wash: oklch(0.56 0.055 135 / 0.3);
   --title-shadow: oklch(0.42 0.05 135); --footer-bg: oklch(0.15 0.012 150);
 }
@@ -158,6 +162,8 @@ a:has(img):hover { background: none; }
 .block--mustard { background: var(--mustard); color: var(--on-light); }
 .block--moss    { background: var(--moss);    color: var(--on-light); }
 .block--slate   { background: var(--slate);   color: var(--on-dark); }
+.block--plum    { background: var(--plum);    color: var(--on-dark); }
+.block--ochre   { background: var(--ochre);   color: var(--on-light); }
 .block--ink     { background: var(--footer-bg); color: var(--on-dark); }
 
 /* Halftone screens.
@@ -185,7 +191,9 @@ a:has(img):hover { background: none; }
 /* Reverse: paper-coloured dots through a dark block (footer). */
 .ht--reverse { mix-blend-mode: screen; }
 .ht--reverse::before { filter: contrast(30) invert(1); }
-.ht--reverse::after { background: oklch(0.948 0.006 130 / 0.75); mix-blend-mode: multiply; }
+/* Dots take the page's own paper colour, so where they're densest the footer
+   fades into the page above rather than to white. */
+.ht--reverse::after { background: var(--paper); mix-blend-mode: multiply; }
 
 /* On paper in dark mode, flip ink dots to light dots. Screens on colour blocks stay ink. */
 :root[data-theme="dark"] .ht:not(.ht--reverse) { mix-blend-mode: screen; }
@@ -208,7 +216,14 @@ a:has(img):hover { background: none; }
 .site-nav { display: flex; align-items: center; gap: 1.4rem; }
 .site-nav ul { display: flex; gap: 1.4rem; list-style: none; margin: 0; padding: 0; }
 .site-nav a { font-family: var(--font-head); font-size: 0.8125rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
-.site-nav a:hover, .site-nav a[aria-current="page"] { background: none; text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 3px; text-underline-offset: 6px; }
+.site-nav, .site-nav ul { flex-wrap: wrap; row-gap: 0.6rem; }
+.site-nav a[data-topic] { padding: 0.3rem 0.55rem; }
+.site-nav a[data-topic="slate"] { background: var(--slate); color: var(--on-dark); }
+.site-nav a[data-topic="plum"]  { background: var(--plum);  color: var(--on-dark); }
+.site-nav a[data-topic="ochre"] { background: var(--ochre); color: var(--on-light); }
+.site-nav a[data-topic]:hover { text-decoration: underline; text-decoration-color: currentColor; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.site-nav a[data-topic][aria-current="page"] { text-decoration: none; box-shadow: 3px 3px 0 var(--ink); }
+.site-nav a:not([data-topic]):hover, .site-nav a:not([data-topic])[aria-current="page"] { background: none; text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 3px; text-underline-offset: 6px; }
 .icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 2.25rem; height: 2.25rem; margin: -0.5rem;
   color: var(--ink); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: none; }
 .icon-btn:hover { background: var(--link-wash); }
@@ -225,12 +240,14 @@ a:has(img):hover { background: none; }
 /* The dot screen is densest on the right, under the icons: knock each icon
    out of it on a footer-coloured tile so it stays legible. */
 .site-footer .social a { display: inline-flex; padding: 0.4rem; background: var(--footer-bg); }
+/* On a narrow footer the line wraps into the screen too; same tile. */
+.site-footer .wrap > span { background: var(--footer-bg); box-shadow: 0 0 0 0.3rem var(--footer-bg); }
 
 /* 6. Post index ----------------------------------------------------------- */
 .intro { display: grid; grid-template-columns: minmax(0, 1fr) 13rem; gap: var(--s-6); align-items: end; padding-top: var(--s-7); }
 /* One line, always: it shrinks with the viewport rather than wrapping. */
 .intro__mark { font-size: min(var(--step-4), 12vw); line-height: 0.92; white-space: nowrap; }
-.intro__mark sup { font-family: var(--font-text); font-size: 1.25rem; color: var(--link); text-shadow: none; vertical-align: top; position: relative; top: 0.4em; }
+.intro__mark sup { font-family: var(--font-text); font-size: 2rem; color: var(--link); text-shadow: none; vertical-align: top; position: relative; top: 0.4em; }
 .intro__gloss { font-size: 0.875rem; line-height: 1.5; padding-top: var(--s-2); border-top: 2px solid var(--ink); }
 .intro__gloss b { color: var(--link); font-weight: 600; }
 .intro__blurb { grid-column: 1 / -1; max-width: var(--measure); font-size: var(--step-1); line-height: 1.5; margin: 0; text-wrap: pretty; }
@@ -253,12 +270,13 @@ a:has(img):hover { background: none; }
 .post-list__title a:hover { background: none; text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 3px; }
 .post-list__summary { grid-column: 2; margin: 0; font-size: 1rem; line-height: 1.5; color: var(--ink-2); }
 
-.topics { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-3); margin-top: var(--s-6); }
+.topics { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-3); margin-top: var(--s-6); }
 .topics a { display: flex; justify-content: space-between; align-items: flex-end; min-height: 5.5rem; padding: 1.1rem 1.25rem; text-decoration: none; overflow: hidden; }
 .topics a:hover { text-decoration: underline; }
-/* Topic screen: angled lines, shared by the home-page topic links and the
-   topic pages' own headers (.page-header--topic) so the two read as one thing. */
-.ht--topic { --ht-cell: repeating-linear-gradient(60deg, #8c8c8c 0, #fff 4px, #8c8c8c 8px); --ht-size: auto; --ht-ramp: linear-gradient(90deg, #fff 45%, #777); }
+/* Topic blocks: each topic has its own screen (.ht--hlines, .ht--dots45,
+   .ht--vlines; see src/lib/topics.ts), shared by its home-page link and its
+   page header. .ht--topic only sets the fade, in from the right edge. */
+.ht--topic { --ht-ramp: linear-gradient(90deg, #fff 45%, #777); }
 .topics .t-head { font-size: 1.1875rem; }
 /* "since …" sits where the screen is darkest; a tile of the block's own colour
    (inherited from the link) clears the lines from under it. */
@@ -311,8 +329,8 @@ a:has(img):hover { background: none; }
    and screen as the topic's link on the home page. */
 .page-header--topic { margin-top: var(--s-7); padding: var(--s-6) var(--s-5) var(--s-7); }
 .page-header--topic .label { color: inherit; }
-.block--slate   { --title-shadow: oklch(0.24 0.02 150); }
-.block--mustard { --title-shadow: oklch(0.97 0.004 130 / 0.75); }
+.block--slate, .block--plum { --title-shadow: oklch(0.24 0.02 150); }
+.block--mustard, .block--ochre { --title-shadow: oklch(0.97 0.004 130 / 0.75); }
 .page-body { max-width: var(--measure); padding-top: var(--s-6); }
 
 /* 10. Prose (Markdown bodies — bare elements only) ------------------------- */
@@ -439,8 +457,9 @@ a:has(img):hover { background: none; }
   /* Narrow blocks put text under the screens; keep them to the far edge. */
   .ht--topic { --ht-ramp: linear-gradient(90deg, #fff 72%, #777); }
   .feature .ht { --ht-ramp: linear-gradient(235deg, #777 0%, #fff 30%); }
-  .site-nav { gap: 1rem; }
-  .site-nav ul { gap: 1rem; }
+  /* Flatten the list so About and the icons share a row with the chips. */
+  .site-nav { gap: 0.75rem 0.9rem; }
+  .site-nav ul { display: contents; }
 }
 
 @media print {

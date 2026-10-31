@@ -1,7 +1,6 @@
 ---
 title: Observability
-kicker: Topic · since 2012
-topicBlock: slate
+topic: observability
 layout: ../../layouts/Page.astro
 ---
 

@@ -1,0 +1,34 @@
+---
+// The Music topic: what I'm building for listening, and every post filed under
+// the `music` category. Lives at /music/, beside those posts' own URLs
+// (/music/appstore/…).
+import Page from "../../layouts/Page.astro";
+import { fmtDate, getPosts, postPath } from "../../lib/posts";
+
+const posts = (await getPosts()).filter((p) => p.data.categories.includes("music"));
+const frontmatter = { title: "Music", topic: "music" };
+---
+<Page frontmatter={frontmatter}>
+  <p>
+    I really love music. Most of what I build these days is <a href="https://kapell.fm">Kapell</a>, an
+    Apple Music player that connects to <a href="https://musicbrainz.org">MusicBrainz</a>,
+    <a href="https://www.wikidata.org">Wikidata</a>, and more. It's built for <em>active</em> listening:
+    a way to learn while you listen.
+  </p>
+  <p>Release notes and listening diaries live on the <a href="https://kapell.fm/blog/">Kapell blog</a>. The posts here are about building it.</p>
+
+  <section slot="after" class="post-list" aria-labelledby="music-posts">
+    <div class="post-list__head">
+      <h2 id="music-posts" class="label" style="margin:0; color: var(--ink)">Posts</h2>
+    </div>
+    <ol>
+      {posts.map((p) => (
+        <li>
+          <time datetime={p.data.date.toISOString()}>{fmtDate(p.data.date)}</time>
+          <h3 class="post-list__title"><a href={postPath(p)}>{p.data.title}</a></h3>
+          {p.data.summary && <p class="post-list__summary">{p.data.summary}</p>}
+        </li>
+      ))}
+    </ol>
+  </section>
+</Page>
