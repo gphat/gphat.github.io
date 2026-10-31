@@ -12,7 +12,9 @@ After years focused on observability, I came to the conclusion that **charts don
 
 In 2019 I joined [SignalFx](https://www.signalfx.com), later [acquired by Splunk](https://www.signalfx.com/blog/signalfx-signs-definitive-agreement-to-be-acquired-by-splunk/), where I researched resilience engineering and its precursors to inform the design of products, organizations, and tooling. In 2021 I joined [Jeli](https://www.jeli.io), later acquired by [PagerDuty](https://www.pagerduty.com), to work on [incident analysis](https://www.jeli.io/howie-the-post-incident-guide/) so that organizations can more easily learn from their work.
 
-I spent a few fulfilling years building my own startup around ergonomic on-call tooling before joining Airbnb, where I've continued that thread working on large-scale reliability initiatives — most notably SLOs — helping engineers understand and trust the systems they build.
+I spent a few fulfilling years building my own startup around ergonomic on-call tooling before joining Airbnb, where I continued that thread working on large-scale reliability initiatives — most notably SLOs — helping engineers understand and trust the systems they build.
+
+These days I'm kicking around working on [Kapell](https://kapell.fm).
 
 # Writing
 
