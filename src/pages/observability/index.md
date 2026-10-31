@@ -26,7 +26,7 @@ In 2019 I joined [SignalFx](https://www.signalfx.com) as a Technical Director, f
 
 After Splunk I spent time at [Jeli](https://jeli.io), working on incident analysis and learning. From there I founded Oilcan, where I spent several years building ergonomic on-call tooling aimed at making the lives of on-call engineers less miserable.
 
-I'm now at [Airbnb](https://airbnb.com), working on infrastructure engineering. My focus includes large-scale reliability initiatives like SLOs — building the systems and culture that let engineers understand and trust what they've built.
+Most recently I worked at [Airbnb](https://airbnb.com), working on infrastructure engineering. My focus included large-scale reliability initiatives like SLOs — building the systems and culture that let engineers understand and trust what they've built.
 
 I'm often asked by investors to discuss my thoughts of new or existing monitoring products, and I enjoy speaking about these tools with others both to learn and provide my thoughts. I've also participated on customer advisory boards, representing my engineering teammates and learning challenges from vendors.
 

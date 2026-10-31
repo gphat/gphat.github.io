@@ -205,10 +205,13 @@ a:has(img):hover { background: none; }
 :root[data-theme="dark"] .ht:not(.ht--reverse) { mix-blend-mode: screen; }
 :root[data-theme="dark"] .ht:not(.ht--reverse)::before { filter: contrast(30) invert(1); }
 :root[data-theme="dark"] .ht:not(.ht--reverse)::after { background: oklch(0.42 0.015 150); mix-blend-mode: darken; }
-/* ...but screens on colour blocks stay dark ink in both modes */
-:root[data-theme="dark"] .block .ht { mix-blend-mode: multiply; }
+/* ...but on colour blocks the marks are the page colour, so a block fades into
+   the page around it. The marks are painted --paper on white and blended with
+   darken: dark paper is darker than every block colour in every channel, so the
+   marks come out exactly --paper and the white leaves the block alone. */
+:root[data-theme="dark"] .block .ht { mix-blend-mode: darken; }
 :root[data-theme="dark"] .block .ht::before { filter: contrast(30); }
-:root[data-theme="dark"] .block .ht::after { background: var(--ht-ink); mix-blend-mode: lighten; }
+:root[data-theme="dark"] .block .ht::after { background: var(--paper); mix-blend-mode: lighten; }
 
 /* Framed icon marker (content-type icons on topic pages) */
 .marker { width: 2.125rem; height: 2.125rem; flex: none; display: inline-flex; align-items: center; justify-content: center;
