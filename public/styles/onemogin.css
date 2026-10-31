@@ -59,17 +59,17 @@
   --mustard:    oklch(0.78 0.10 95);      /* warning callouts */
   --plum:       oklch(0.46 0.06 335);     /* Resilience */
   --ochre:      oklch(0.72 0.11 70);      /* Music: amber, a VU meter's glow */
-  --teal:       oklch(0.58 0.05 200);     /* About: dusty teal */
+  --teal:       oklch(0.58 0.05 200);     /* lead accent (--accent): feature block, title shadow, nav current */
   --slate:      oklch(0.56 0.04 245);     /* Observability, info callouts */
-  --moss:       oklch(0.60 0.055 135);    /* lead accent (--accent): feature block, title shadow, nav current */
-  --accent:     var(--moss);
+  --moss:       oklch(0.60 0.055 135);    /* About */
+  --accent:     var(--teal);
   --madder:     oklch(0.52 0.07 12);      /* reserved: warnings/errors only */
   --link:       oklch(0.42 0.06 245);     /* body links */
   /* Lucide arrow-up-right stroked in --link: the external-link marker. */
   --ext-arrow:  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2330506c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 7h10v10'/%3E%3Cpath d='M7 17 17 7'/%3E%3C/svg%3E");
-  --link-wash:  oklch(0.60 0.055 135 / 0.28);
+  --link-wash:  oklch(0.58 0.05 200 / 0.28);
   --on-dark:    oklch(0.97 0.004 130);    /* text on slate / ink blocks */
-  --on-light:   oklch(0.24 0.02 150);     /* text on mustard / moss blocks (same in both modes) */
+  --on-light:   oklch(0.24 0.02 150);     /* text on mustard / ochre / moss blocks (same in both modes) */
   --title-shadow: var(--accent);
   --ht-ink:     oklch(0.24 0.02 150);     /* halftone ink (always dark) */
   --footer-bg:  oklch(0.24 0.02 150);
@@ -106,9 +106,9 @@
     --ink: oklch(0.92 0.008 130); --ink-2: oklch(0.72 0.012 130); --rule: oklch(0.92 0.008 130 / 0.16);
     --mustard: oklch(0.78 0.10 95); --slate: oklch(0.52 0.045 245); --moss: oklch(0.56 0.055 135);
     --plum: oklch(0.42 0.06 335); --ochre: oklch(0.68 0.105 70); --teal: oklch(0.53 0.05 200);
-    --link: oklch(0.80 0.07 245); --link-wash: oklch(0.56 0.055 135 / 0.3);
+    --link: oklch(0.80 0.07 245); --link-wash: oklch(0.53 0.05 200 / 0.3);
     --ext-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2398c3e8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 7h10v10'/%3E%3Cpath d='M7 17 17 7'/%3E%3C/svg%3E");
-    --title-shadow: oklch(0.42 0.05 135); --footer-bg: oklch(0.15 0.012 150);
+    --title-shadow: oklch(0.40 0.045 200); --footer-bg: oklch(0.15 0.012 150);
   }
 }
 :root[data-theme="dark"] {
@@ -117,9 +117,9 @@
   --ink: oklch(0.92 0.008 130); --ink-2: oklch(0.72 0.012 130); --rule: oklch(0.92 0.008 130 / 0.16);
   --mustard: oklch(0.78 0.10 95); --slate: oklch(0.52 0.045 245); --moss: oklch(0.56 0.055 135);
     --plum: oklch(0.42 0.06 335); --ochre: oklch(0.68 0.105 70); --teal: oklch(0.53 0.05 200);
-  --link: oklch(0.80 0.07 245); --link-wash: oklch(0.56 0.055 135 / 0.3);
+  --link: oklch(0.80 0.07 245); --link-wash: oklch(0.53 0.05 200 / 0.3);
     --ext-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2398c3e8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 7h10v10'/%3E%3Cpath d='M7 17 17 7'/%3E%3C/svg%3E");
-  --title-shadow: oklch(0.42 0.05 135); --footer-bg: oklch(0.15 0.012 150);
+  --title-shadow: oklch(0.40 0.045 200); --footer-bg: oklch(0.15 0.012 150);
 }
 
 /* 3. Base ----------------------------------------------------------------- */
@@ -227,7 +227,7 @@ a:has(img):hover { background: none; }
 .site-nav a[data-topic="slate"] { background: var(--slate); color: var(--on-dark); }
 .site-nav a[data-topic="plum"]  { background: var(--plum);  color: var(--on-dark); }
 .site-nav a[data-topic="ochre"] { background: var(--ochre); color: var(--on-light); }
-.site-nav a[data-topic="teal"]  { background: var(--teal);  color: var(--on-dark); }
+.site-nav a[data-topic="moss"]  { background: var(--moss);  color: var(--on-light); }
 .site-nav a[data-topic]:hover { text-decoration: underline; text-decoration-color: currentColor; text-decoration-thickness: 2px; text-underline-offset: 3px; }
 .site-nav a[data-topic][aria-current="page"] { text-decoration: none; box-shadow: 3px 3px 0 var(--ink); }
 .site-nav a:not([data-topic]):hover, .site-nav a:not([data-topic])[aria-current="page"] { background: none; text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 3px; text-underline-offset: 6px; }
@@ -318,7 +318,7 @@ a:has(img):hover { background: none; }
 .post-actions .rss-cta { margin-left: auto; }
 
 /* 8. Series --------------------------------------------------------------- */
-.series { border: 1.5px solid var(--ink); box-shadow: var(--hard) var(--hard) 0 var(--moss); padding: 0.85rem 1rem 0.95rem; font-size: 0.9375rem; line-height: 1.5; background: var(--paper); }
+.series { border: 1.5px solid var(--ink); box-shadow: var(--hard) var(--hard) 0 var(--accent); padding: 0.85rem 1rem 0.95rem; font-size: 0.9375rem; line-height: 1.5; background: var(--paper); }
 .series__head { margin: 0 0 0.35rem; }
 .series p { margin: 0 0 0.5rem; font-style: italic; color: var(--ink-2); font-size: 0.875rem; }
 .series ol { margin: 0; padding-left: 1.25em; }
@@ -339,7 +339,7 @@ a:has(img):hover { background: none; }
 .page-header--topic { margin-top: var(--s-7); padding: var(--s-6) var(--s-5) var(--s-7); }
 .page-header--topic .label { color: inherit; }
 .block--slate, .block--plum, .block--teal { --title-shadow: oklch(0.24 0.02 150); }
-.block--mustard, .block--ochre { --title-shadow: oklch(0.97 0.004 130 / 0.75); }
+.block--mustard, .block--ochre, .block--moss { --title-shadow: oklch(0.97 0.004 130 / 0.75); }
 .page-body { max-width: var(--measure); padding-top: var(--s-6); }
 
 /* 10. Prose (Markdown bodies — bare elements only) ------------------------- */
@@ -393,7 +393,7 @@ a:has(img):hover { background: none; }
 
 /* Images followed by <br><em>caption</em> (no <figure>). */
 .prose img { height: auto; vertical-align: middle; }
-.prose p > img:only-child, .prose p > img:has(+ br + em), .prose p > a:only-child > img { display: inline-block; border: 1.5px solid var(--ink); box-shadow: 5px 5px 0 var(--moss); }
+.prose p > img:only-child, .prose p > img:has(+ br + em), .prose p > a:only-child > img { display: inline-block; border: 1.5px solid var(--ink); box-shadow: 5px 5px 0 var(--accent); }
 .prose p:has(> img) { margin-top: 1.6em; }
 .prose img + br + em { display: block; margin-top: 0.75em; font-size: var(--step--1); line-height: 1.45; color: var(--ink-2); }
 

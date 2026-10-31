@@ -7,7 +7,7 @@ export interface Section {
   // Topics show "since" on their home-page block and page header.
   since?: number;
   // Block colour: .block--<color> and .site-nav a[data-topic="<color>"].
-  color: "slate" | "plum" | "ochre" | "teal";
+  color: "slate" | "plum" | "ochre" | "moss";
   // Halftone screen: .ht--<screen>.
   screen: "hlines" | "dots45" | "vlines" | "grain";
 }
@@ -21,11 +21,11 @@ export const TOPICS = {
   music: { href: "/music", label: "Music", since: 2026, color: "ochre", screen: "vlines" },
 } satisfies Record<string, Section>;
 
-// Everything in the nav: the topics, then About. Moss is the home page's
-// accent, so About takes dusty teal, and the one screen nobody else uses.
+// Everything in the nav: the topics, then About. Dusty teal is the home page's
+// accent, so About takes moss, and the one screen nobody else uses.
 export const SECTIONS = {
   ...TOPICS,
-  about: { href: "/about", label: "About", color: "teal", screen: "grain" },
+  about: { href: "/about", label: "About", color: "moss", screen: "grain" },
 } satisfies Record<string, Section>;
 
 export type SectionKey = keyof typeof SECTIONS;

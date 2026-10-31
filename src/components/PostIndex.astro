@@ -34,7 +34,7 @@ const list = isFirst ? shown.slice(1) : shown;
     )}
 
     {lead && (
-      <article class="feature block block--moss">
+      <article class="feature block block--teal">
         <span class="ht ht--wave" aria-hidden="true"></span>
         <span class="label" style="color: inherit">Latest &middot; <time datetime={lead.data.date.toISOString()}>{fmtDate(lead.data.date)}</time></span>
         <h2 class="feature__title t-display"><a href={postPath(lead)}>{lead.data.title}</a></h2>
