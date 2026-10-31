@@ -1,0 +1,15 @@
+---
+// GitHub Pages serves /404.html for any path it has no file for.
+import Page from "../layouts/Page.astro";
+import { getPosts, postPath } from "../lib/posts";
+
+const latest = (await getPosts())[0];
+const frontmatter = { title: "Not found", description: "There's nothing at this address." };
+---
+<Page frontmatter={frontmatter}>
+  <p>There's nothing at this address. It may have moved, or the link may have a typo in it.</p>
+  <p>
+    Try <a href="/">the home page</a>, a topic in the menu above, or the newest post,
+    <a href={postPath(latest)}>{latest.data.title}</a>.
+  </p>
+</Page>

@@ -9,6 +9,13 @@ function absolutise(html: string): string {
   return html.replace(/(\s(?:src|href)=")\/(?!\/)/g, `$1${FEED_ORIGIN}/`);
 }
 
+// Drop the heading anchors (src/lib/headingAnchors.mjs). They're an icon that
+// the site's CSS sizes and hides; a reader has neither, and draws a stray,
+// sometimes huge, link glyph beside every heading.
+function stripAnchors(html: string): string {
+  return html.replace(/<a class="anchor"[^>]*>[\s\S]*?<\/a>/g, "");
+}
+
 // Same shape as the Jekyll feed: the ten newest posts, full HTML in
 // <description>, link and guid on FEED_ORIGIN (see consts.ts for why it's http).
 export async function GET(context: APIContext) {
@@ -21,7 +28,7 @@ export async function GET(context: APIContext) {
       title: post.data.title,
       pubDate: post.data.date,
       link: `${FEED_ORIGIN}${postPath(post)}`,
-      description: absolutise(post.rendered?.html ?? ""),
+      description: absolutise(stripAnchors(post.rendered?.html ?? "")),
       categories: post.data.categories,
     })),
     customData: `<lastBuildDate>${new Date().toUTCString()}</lastBuildDate>`,

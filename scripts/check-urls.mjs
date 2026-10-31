@@ -33,6 +33,9 @@ for (const url of expected) {
 const feed = readFileSync(join(DIST, "feed.xml"), "utf8");
 const guids = [...feed.matchAll(/<guid[^>]*>([^<]*)<\/guid>/g)].map((m) => m[1]);
 if (guids.length === 0) failures.push("feed: no guids");
+// Readers have no stylesheet, so page chrome like the heading-anchor icons
+// must not reach the feed.
+if (/&lt;svg|class=&quot;anchor/.test(feed)) failures.push("feed: page chrome (svg, heading anchors) in item bodies");
 for (const g of guids) {
   if (!g.startsWith(`${FEED_ORIGIN}/`)) failures.push(`feed: guid not on ${FEED_ORIGIN}: ${g}`);
   else if (!fileFor(g.slice(FEED_ORIGIN.length))) failures.push(`feed: guid has no page: ${g}`);
