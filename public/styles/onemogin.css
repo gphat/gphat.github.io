@@ -96,6 +96,8 @@
   --note-w:   12.5rem;        /* 200px margin-note column */
   --note-gap: 2.5rem;
   --hard:     4px;            /* hard-shadow offset for boxes */
+  --radius:   6px;            /* corners of blocks and boxes */
+  --radius-sm: 3px;           /* corners of chips and small tiles */
 }
 
 /* Dark: follows the OS unless the toggle has set data-theme. */
@@ -488,3 +490,12 @@ a:has(img):hover { background: none; }
   .site-header nav, .site-footer, .ht, .theme-toggle, .post-actions { display: none !important; }
   html { background: #fff; color: #000; }
 }
+
+/* Gently rounded corners. Screens take their block's corners so they don't
+   poke out of them; the tiles on the topic blocks round to match. */
+.block, .series, .marker, .prose .panel,
+.prose :is(blockquote.twitter-tweet, blockquote.imgur-embed-pub),
+.prose p > img:only-child, .prose p > img:has(+ br + em), .prose p > a:only-child > img { border-radius: var(--radius); }
+.block { overflow: hidden; }
+.block > .ht { border-radius: inherit; }
+.site-nav a[data-topic], .topics small, .site-footer .social a, .prose pre, .prose code { border-radius: var(--radius-sm); }
