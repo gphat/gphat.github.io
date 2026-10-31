@@ -2,7 +2,7 @@
 // Base shell: header (wordmark + nav), main slot, footer.
 import Icon from "../components/Icon.astro";
 import { SITE_TITLE, SITE_DESCRIPTION, EMAIL, GITHUB_USERNAME, LINKEDIN_USERNAME, TITLE_IMAGE } from "../consts";
-import { TOPICS } from "../lib/topics";
+import { SECTIONS } from "../lib/topics";
 
 interface Props {
   title?: string;
@@ -17,11 +17,8 @@ const { title, description, image, path = Astro.url.pathname } = Astro.props;
 const canonical = new URL(path, Astro.site);
 const imageUrl = new URL(image ?? TITLE_IMAGE, Astro.site);
 
-// Topic links wear their topic's block colour (see .site-nav a[data-topic]).
-const nav: { href: string; label: string; topic?: string }[] = [
-  ...Object.values(TOPICS).map((t) => ({ href: t.href, label: t.label, topic: t.color })),
-  { href: "/about", label: "About" },
-];
+// Each section's link wears its block colour (see .site-nav a[data-topic]).
+const nav = Object.values(SECTIONS).map((t) => ({ href: t.href, label: t.label, topic: t.color }));
 const isCurrent = (href: string) => path === href || path.startsWith(href + "/");
 const year = new Date().getFullYear();
 ---

@@ -1,20 +1,20 @@
 ---
 // Layout for the pages under src/pages (About, the topic pages).
-// Frontmatter: title, optional description, optional topic (a key of TOPICS):
-// a topic page's header is the same colour block and screen as its link on
-// the home page.
+// Frontmatter: title, optional description, optional topic (a key of SECTIONS):
+// the header is that section's colour block and screen, as on its nav chip and
+// (for topics) its home-page block.
 import Base from "./Base.astro";
-import { TOPICS, type TopicKey } from "../lib/topics";
+import { SECTIONS, type SectionKey } from "../lib/topics";
 
 const { title, description, topic: topicKey } = Astro.props.frontmatter;
-const topic = topicKey ? TOPICS[topicKey as TopicKey] : undefined;
+const topic = topicKey ? SECTIONS[topicKey as SectionKey] : undefined;
 ---
 <Base title={title} description={description}>
   {topic ? (
     <div class="wrap">
       <header class:list={["page-header", "page-header--topic", "block", `block--${topic.color}`]}>
         <span class:list={["ht", "ht--topic", `ht--${topic.screen}`]} aria-hidden="true"></span>
-        <span class="label">Topic · since {topic.since}</span>
+        {"since" in topic && <span class="label">Topic · since {topic.since}</span>}
         <h1 class="t-display title-shadow">{title}</h1>
       </header>
     </div>

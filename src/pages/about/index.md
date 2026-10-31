@@ -1,5 +1,6 @@
 ---
 title: About
+topic: about
 layout: ../../layouts/Page.astro
 ---
 
