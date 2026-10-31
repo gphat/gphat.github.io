@@ -1,6 +1,7 @@
 ---
 title: Observability
 kicker: Topic · since 2012
+topicBlock: slate
 layout: ../../layouts/Page.astro
 ---
 
@@ -47,8 +48,8 @@ I speak regularly and conferences across the country promoting observability and
 
 ## Monitorama 2016:
 
-<iframe src="https://player.vimeo.com/video/173610034?portrait=0" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-<p><a href="https://vimeo.com/173610034">Monitorama PDX 2016 - Cory Watson - Creating A Culture of Observability at Stripe</a> from <a href="https://vimeo.com/monitorama">Monitorama</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+<iframe src="https://www.youtube.com/embed/DJkXIR_nYGM" title="Monitorama PDX 2016 - Creating A Culture of Observability at Stripe" width="640" height="360" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p><a href="https://www.youtube.com/watch?v=DJkXIR_nYGM">Monitorama PDX 2016 - Creating A Culture of Observability at Stripe</a> from Monitorama on YouTube.</p>
 
 [Here are the slides if you prefer to flip through them rather than listen to me talk](http://www.slideshare.net/CoryWatson8/building-a-culture-of-observability-at-stripe).
 
@@ -70,8 +71,6 @@ I gave at talk at the New York AWS Loft office called "Demystifying Observabilit
 I had the pleasure of giving a 5 minute "vendor talk" at Monitorama PDX 2019. These talks are sometimes product pitches, but more often they are just a chance to speak about something important/interesting for the attendees and *maybe* mention your product. I decided to talk about how to think about observability tooling inspired by [John Allspaw's "An Open Letter to Monitoring/Metrics/Alerting Companies"](https://www.kitchensoap.com/2015/05/01/openlettertomonitoringproducts/).
 
 ## Monitorama Baltimore 2019:
-
-<iframe src="https://player.vimeo.com/video/369638117?portrait=0" width="640" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 
 I spoke about a Dashboard Renaissance, or techniques and processes for making dashboards a more helpful part of your observability and monitoring work. [Slides are here](http://onemogin.com/assets/talks/Dashboard-Renaissance.pdf).
 

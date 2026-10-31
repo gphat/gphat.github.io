@@ -1,16 +1,28 @@
 ---
 // Layout for the Markdown pages under src/pages (About, Observability, Resilience).
-// Frontmatter: title, optional description, optional kicker ("Topic · since 2012").
+// Frontmatter: title, optional description, optional kicker ("Topic · since 2012"),
+// optional topicBlock ("slate" | "mustard"): a topic page's header is the same
+// colour block and screen as its link on the home page.
 import Base from "./Base.astro";
 
-const { title, description, kicker } = Astro.props.frontmatter;
+const { title, description, kicker, topicBlock } = Astro.props.frontmatter;
 ---
 <Base title={title} description={description}>
-  <header class="page-header wrap">
-    <span class="ht" aria-hidden="true"></span>
-    {kicker && <span class="label">{kicker}</span>}
-    <h1 class="t-display title-shadow">{title}</h1>
-  </header>
+  {topicBlock ? (
+    <div class="wrap">
+      <header class:list={["page-header", "page-header--topic", "block", `block--${topicBlock}`]}>
+        <span class="ht ht--topic" aria-hidden="true"></span>
+        {kicker && <span class="label">{kicker}</span>}
+        <h1 class="t-display title-shadow">{title}</h1>
+      </header>
+    </div>
+  ) : (
+    <header class="page-header wrap">
+      <span class="ht" aria-hidden="true"></span>
+      {kicker && <span class="label">{kicker}</span>}
+      <h1 class="t-display title-shadow">{title}</h1>
+    </header>
+  )}
   <div class="wrap">
     <div class="page-body prose">
       <slot />

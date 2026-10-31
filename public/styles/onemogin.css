@@ -56,15 +56,16 @@
   --ink:        oklch(0.24 0.02 150);     /* text, rules */
   --ink-2:      oklch(0.44 0.015 150);    /* secondary text, dates, captions */
   --rule:       oklch(0.24 0.02 150 / 0.18);
-  --mustard:    oklch(0.78 0.10 95);      /* lead accent: feature block, title shadow, nav current */
+  --mustard:    oklch(0.78 0.10 95);      /* Resilience, warning callouts */
   --slate:      oklch(0.56 0.04 245);     /* Observability, info callouts */
-  --moss:       oklch(0.60 0.055 135);    /* Resilience, series shadow */
+  --moss:       oklch(0.60 0.055 135);    /* lead accent (--accent): feature block, title shadow, nav current */
+  --accent:     var(--moss);
   --madder:     oklch(0.52 0.07 12);      /* reserved: warnings/errors only */
   --link:       oklch(0.42 0.06 245);     /* body links */
-  --link-wash:  oklch(0.78 0.10 95 / 0.35);
+  --link-wash:  oklch(0.60 0.055 135 / 0.28);
   --on-dark:    oklch(0.97 0.004 130);    /* text on slate / ink blocks */
   --on-light:   oklch(0.24 0.02 150);     /* text on mustard / moss blocks (same in both modes) */
-  --title-shadow: var(--mustard);
+  --title-shadow: var(--accent);
   --ht-ink:     oklch(0.24 0.02 150);     /* halftone ink (always dark) */
   --footer-bg:  oklch(0.24 0.02 150);
 
@@ -99,8 +100,8 @@
     --paper: oklch(0.21 0.014 150); --paper-2: oklch(0.255 0.016 150);
     --ink: oklch(0.92 0.008 130); --ink-2: oklch(0.72 0.012 130); --rule: oklch(0.92 0.008 130 / 0.16);
     --mustard: oklch(0.78 0.10 95); --slate: oklch(0.52 0.045 245); --moss: oklch(0.56 0.055 135);
-    --link: oklch(0.80 0.07 245); --link-wash: oklch(0.78 0.10 95 / 0.18);
-    --title-shadow: oklch(0.52 0.08 95); --footer-bg: oklch(0.15 0.012 150);
+    --link: oklch(0.80 0.07 245); --link-wash: oklch(0.56 0.055 135 / 0.3);
+    --title-shadow: oklch(0.42 0.05 135); --footer-bg: oklch(0.15 0.012 150);
   }
 }
 :root[data-theme="dark"] {
@@ -108,8 +109,8 @@
   --paper: oklch(0.21 0.014 150); --paper-2: oklch(0.255 0.016 150);
   --ink: oklch(0.92 0.008 130); --ink-2: oklch(0.72 0.012 130); --rule: oklch(0.92 0.008 130 / 0.16);
   --mustard: oklch(0.78 0.10 95); --slate: oklch(0.52 0.045 245); --moss: oklch(0.56 0.055 135);
-  --link: oklch(0.80 0.07 245); --link-wash: oklch(0.78 0.10 95 / 0.18);
-  --title-shadow: oklch(0.52 0.08 95); --footer-bg: oklch(0.15 0.012 150);
+  --link: oklch(0.80 0.07 245); --link-wash: oklch(0.56 0.055 135 / 0.3);
+  --title-shadow: oklch(0.42 0.05 135); --footer-bg: oklch(0.15 0.012 150);
 }
 
 /* 3. Base ----------------------------------------------------------------- */
@@ -203,11 +204,11 @@ a:has(img):hover { background: none; }
 .site-header { border-bottom: 1.5px solid var(--ink); }
 .site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); padding-block: 1.1rem; flex-wrap: wrap; }
 .wordmark { font-family: var(--font-display); font-size: 1.0625rem; text-transform: uppercase; color: var(--ink); text-decoration: none; }
-.wordmark:hover { background: none; text-decoration: underline; text-decoration-color: var(--mustard); text-decoration-thickness: 3px; text-underline-offset: 6px; }
+.wordmark:hover { background: none; text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 3px; text-underline-offset: 6px; }
 .site-nav { display: flex; align-items: center; gap: 1.4rem; }
 .site-nav ul { display: flex; gap: 1.4rem; list-style: none; margin: 0; padding: 0; }
 .site-nav a { font-family: var(--font-head); font-size: 0.8125rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
-.site-nav a:hover, .site-nav a[aria-current="page"] { background: none; text-decoration: underline; text-decoration-color: var(--mustard); text-decoration-thickness: 3px; text-underline-offset: 6px; }
+.site-nav a:hover, .site-nav a[aria-current="page"] { background: none; text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 3px; text-underline-offset: 6px; }
 .icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 2.25rem; height: 2.25rem; margin: -0.5rem;
   color: var(--ink); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: none; }
 .icon-btn:hover { background: var(--link-wash); }
@@ -221,11 +222,14 @@ a:has(img):hover { background: none; }
 .site-footer a { color: inherit; }
 .site-footer a:hover { background: none; }
 .site-footer .social { display: flex; gap: 1.1rem; list-style: none; margin: 0; padding: 0; }
-.site-footer .social a { display: inline-flex; padding: 0.25rem; }
+/* The dot screen is densest on the right, under the icons: knock each icon
+   out of it on a footer-coloured tile so it stays legible. */
+.site-footer .social a { display: inline-flex; padding: 0.4rem; background: var(--footer-bg); }
 
 /* 6. Post index ----------------------------------------------------------- */
 .intro { display: grid; grid-template-columns: minmax(0, 1fr) 13rem; gap: var(--s-6); align-items: end; padding-top: var(--s-7); }
-.intro__mark { font-size: var(--step-4); line-height: 0.92; white-space: nowrap; }
+/* One line, always: it shrinks with the viewport rather than wrapping. */
+.intro__mark { font-size: min(var(--step-4), 12vw); line-height: 0.92; white-space: nowrap; }
 .intro__mark sup { font-family: var(--font-text); font-size: 1.25rem; color: var(--link); text-shadow: none; vertical-align: top; position: relative; top: 0.4em; }
 .intro__gloss { font-size: 0.875rem; line-height: 1.5; padding-top: var(--s-2); border-top: 2px solid var(--ink); }
 .intro__gloss b { color: var(--link); font-weight: 600; }
@@ -246,15 +250,19 @@ a:has(img):hover { background: none; }
 .post-list time { font-style: italic; font-size: 0.875rem; color: var(--ink-2); padding-top: 0.2em; }
 .post-list__title { font-family: var(--font-head); font-size: 1.125rem; line-height: 1.2; text-transform: uppercase; margin: 0; }
 .post-list__title a { color: var(--ink); text-decoration: none; }        /* titles are obviously links; underline on hover */
-.post-list__title a:hover { background: none; text-decoration: underline; text-decoration-color: var(--mustard); text-decoration-thickness: 3px; }
+.post-list__title a:hover { background: none; text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 3px; }
 .post-list__summary { grid-column: 2; margin: 0; font-size: 1rem; line-height: 1.5; color: var(--ink-2); }
 
 .topics { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-3); margin-top: var(--s-6); }
 .topics a { display: flex; justify-content: space-between; align-items: flex-end; min-height: 5.5rem; padding: 1.1rem 1.25rem; text-decoration: none; overflow: hidden; }
 .topics a:hover { text-decoration: underline; }
-.topics .ht { --ht-cell: repeating-linear-gradient(90deg, #8c8c8c 0, #fff 4px, #8c8c8c 8px); --ht-size: auto; --ht-ramp: linear-gradient(90deg, #fff 40%, #777); }
+/* Topic screen: angled lines, shared by the home-page topic links and the
+   topic pages' own headers (.page-header--topic) so the two read as one thing. */
+.ht--topic { --ht-cell: repeating-linear-gradient(60deg, #8c8c8c 0, #fff 4px, #8c8c8c 8px); --ht-size: auto; --ht-ramp: linear-gradient(90deg, #fff 45%, #777); }
 .topics .t-head { font-size: 1.1875rem; }
-.topics small { font-style: italic; font-size: 0.8125rem; white-space: nowrap; }
+/* "since …" sits where the screen is darkest; a tile of the block's own colour
+   (inherited from the link) clears the lines from under it. */
+.topics small { font-style: italic; font-size: 0.8125rem; white-space: nowrap; background: inherit; padding: 0.15rem 0.45rem; margin: -0.15rem -0.45rem; }
 
 .pagination { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: var(--s-4); margin-top: var(--s-6); padding-top: var(--s-4); border-top: 2px solid var(--ink); }
 .pagination a { font-family: var(--font-head); font-size: 0.8125rem; letter-spacing: 0.05em; text-transform: uppercase; display: inline-flex; gap: 0.4rem; align-items: center; }
@@ -294,10 +302,17 @@ a:has(img):hover { background: none; }
 .series .series__note { margin: 0.6rem 0 0; }
 
 /* 9. Page (About, Observability, Resilience) ------------------------------ */
-.page-header { position: relative; isolation: isolate; background: var(--paper); padding-block: var(--s-7) calc(var(--s-8) + var(--s-2)); overflow: hidden; }
-.page-header .ht { top: auto; height: 4rem; --ht-cell: repeating-linear-gradient(0deg, #8c8c8c 0, #fff 3.5px, #8c8c8c 7px); --ht-size: auto; --ht-ramp: linear-gradient(0deg, #777, #fff); }
+.page-header { position: relative; isolation: isolate; padding-block: var(--s-7) calc(var(--s-8) + var(--s-2)); overflow: hidden; }
+.page-header:not(.block) { background: var(--paper); }
+.page-header:not(.block) .ht { top: auto; height: 4rem; --ht-cell: repeating-linear-gradient(0deg, #8c8c8c 0, #fff 3.5px, #8c8c8c 7px); --ht-size: auto; --ht-ramp: linear-gradient(0deg, #777, #fff); }
 .page-header > :not(.ht) { position: relative; z-index: 1; }
 .page-header h1 { font-size: var(--step-3); margin-top: var(--s-3); overflow-wrap: anywhere; }
+/* Topic pages (Observability, Resilience): the header is the same colour block
+   and screen as the topic's link on the home page. */
+.page-header--topic { margin-top: var(--s-7); padding: var(--s-6) var(--s-5) var(--s-7); }
+.page-header--topic .label { color: inherit; }
+.block--slate   { --title-shadow: oklch(0.24 0.02 150); }
+.block--mustard { --title-shadow: oklch(0.97 0.004 130 / 0.75); }
 .page-body { max-width: var(--measure); padding-top: var(--s-6); }
 
 /* 10. Prose (Markdown bodies — bare elements only) ------------------------- */
@@ -331,7 +346,7 @@ a:has(img):hover { background: none; }
 .prose li + li { margin-top: 0.35em; }
 .prose li > ul, .prose li > ol { margin-top: 0.35em; }
 
-.prose blockquote { margin: 1.7em 0; padding: 0.7em 0 0; border-top: 3px solid var(--mustard); font-size: var(--step-1); line-height: 1.45; font-style: italic; }
+.prose blockquote { margin: 1.7em 0; padding: 0.7em 0 0; border-top: 3px solid var(--accent); font-size: var(--step-1); line-height: 1.45; font-style: italic; }
 .prose blockquote > * + * { margin-top: 0.7em; }
 .prose blockquote p { margin: 0; }
 
@@ -383,6 +398,8 @@ a:has(img):hover { background: none; }
 
 /* Embeds */
 .prose iframe { max-width: 100%; border: 0; display: block; }
+/* Video embeds keep 16:9 at any width instead of their fixed height. */
+.prose iframe[src*="youtube.com/embed"] { width: 100%; height: auto; aspect-ratio: 16 / 9; }
 .prose :is(blockquote.twitter-tweet, blockquote.imgur-embed-pub) {
   font-style: normal; font-size: 1rem; line-height: 1.5; max-width: 34rem;
   border: 1.5px solid var(--ink); box-shadow: var(--hard) var(--hard) 0 var(--slate); padding: 1rem 1.2rem; }
@@ -416,10 +433,12 @@ a:has(img):hover { background: none; }
 /* Responsive */
 @media (max-width: 46rem) {
   .intro { grid-template-columns: 1fr; gap: var(--s-4); }
-  .intro__mark { white-space: normal; }
   .post-list li { grid-template-columns: 1fr; }
   .post-list__summary { grid-column: 1; }
   .topics { grid-template-columns: 1fr; }
+  /* Narrow blocks put text under the screens; keep them to the far edge. */
+  .ht--topic { --ht-ramp: linear-gradient(90deg, #fff 72%, #777); }
+  .feature .ht { --ht-ramp: linear-gradient(235deg, #777 0%, #fff 30%); }
   .site-nav { gap: 1rem; }
   .site-nav ul { gap: 1rem; }
 }

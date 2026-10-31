@@ -26,14 +26,14 @@ const list = isFirst ? shown.slice(1) : shown;
   <div class="wrap">
     {isFirst && (
       <section class="intro" aria-label="About this site">
-        <p class="intro__mark t-display title-shadow" aria-label="One Mo' 'Gin">One mo'<br />'gin<sup aria-hidden="true">1</sup></p>
-        <p class="intro__gloss"><b>1</b> <em>'gin</em>, as in again. One more, again. Field notes on reliable systems, by Cory, in Nashville.</p>
-        <p class="intro__blurb">I'm Cory, a senior infrastructure engineer based in Nashville, TN. I build reliable systems and think hard about the product experience around them — because great infra is nothing if nobody can use it.</p>
+        <p class="intro__mark t-display title-shadow" aria-label="One Mo' 'Gin">One mo' 'gin<sup aria-hidden="true">1</sup></p>
+        <p class="intro__gloss"><b>1</b> <em>'gin</em>, as in again. One more, again. Say it “one more again.”</p>
+        <p class="intro__blurb">I'm Cory, a senior infrastructure engineer based in Nashville. I build reliable systems and think hard about the product experience around them — because great infra is nothing if nobody can use it.</p>
       </section>
     )}
 
     {lead && (
-      <article class="feature block block--mustard">
+      <article class="feature block block--moss">
         <span class="ht ht--wave" aria-hidden="true"></span>
         <span class="label" style="color: inherit">Latest &middot; <time datetime={lead.data.date.toISOString()}>{fmtDate(lead.data.date)}</time></span>
         <h2 class="feature__title t-display"><a href={postPath(lead)}>{lead.data.title}</a></h2>
@@ -64,8 +64,8 @@ const list = isFirst ? shown.slice(1) : shown;
 
     {isFirst && (
       <nav class="topics" aria-label="Topics">
-        <a class="block block--slate" href="/observability"><span class="ht" aria-hidden="true"></span><span class="t-head">Observability</span><small>since 2012 →</small></a>
-        <a class="block block--moss" href="/resilience"><span class="ht" aria-hidden="true"></span><span class="t-head">Resilience</span><small>since 2019 →</small></a>
+        <a class="block block--slate" href="/observability"><span class="ht ht--topic" aria-hidden="true"></span><span class="t-head">Observability</span><small>since 2012 →</small></a>
+        <a class="block block--mustard" href="/resilience"><span class="ht ht--topic" aria-hidden="true"></span><span class="t-head">Resilience</span><small>since 2019 →</small></a>
       </nav>
     )}
   </div>

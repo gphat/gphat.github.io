@@ -8,8 +8,8 @@ For a change of pace, I'd like to share a video of me talking, rather than writi
 
 In June of 2016 I was lucky enough to be selected to speak at [Monitorama](http://www.monitorama.com) and I'm proud to post the video here for anyone interested in the work.
 
-<iframe src="https://player.vimeo.com/video/173610034?portrait=0" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-<p><a href="https://vimeo.com/173610034">Monitorama PDX 2016 - Cory Watson - Creating A Culture of Observability at Stripe</a> from <a href="https://vimeo.com/monitorama">Monitorama</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+<iframe src="https://www.youtube.com/embed/DJkXIR_nYGM" title="Monitorama PDX 2016 - Creating A Culture of Observability at Stripe" width="640" height="360" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p><a href="https://www.youtube.com/watch?v=DJkXIR_nYGM">Monitorama PDX 2016 - Creating A Culture of Observability at Stripe</a> from Monitorama on YouTube.</p>
 
 [Here are the slides if you prefer to flip through them rather than listen to me talk](http://www.slideshare.net/CoryWatson8/building-a-culture-of-observability-at-stripe).
 

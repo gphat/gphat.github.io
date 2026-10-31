@@ -1,6 +1,7 @@
 ---
 title: Resilience
 kicker: Topic · since 2019
+topicBlock: mustard
 layout: ../../layouts/Page.astro
 ---
 
