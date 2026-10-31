@@ -1,46 +1,27 @@
 ---
-// The "this post is part of a series" box, formerly _includes/{gc,dashboard-guide,automation}.html.
-interface Props {
-  series: "gc" | "dashboards" | "automation";
-}
+// "This post is part of…" box. Rendered at the top (margin on wide screens) and bottom of a post.
+// The current part is highlighted (bold + "← you are here") and is not a link.
+import Icon from "./Icon.astro";
+import type { Series } from "../lib/series";
 
-const { series } = Astro.props;
+interface Props extends Series {
+  currentUrl: string;
+  position?: "top" | "bottom";
+}
+const { name, description, note, parts, currentUrl, position = "top" } = Astro.props;
+const idx = parts.findIndex((p) => p.url === currentUrl);
 ---
-{series === "gc" && (
-  <div class="well well-sm">
-    <small>
-      This post is part of series on garbage collection. I'm not remotely close to an expert on the subject, but <a href="/people/smart/i-have-valuable-information.html">I'm learning</a>. If you've got comments leave feedback at the bottom!
-      <ul>
-        <li><a href="/programming/gc/why-garbage-collection.html">Why Garbage Collection</a></li>
-        <li><a href="/java/gc/java-gc-tuning-for-noobs-1.html">Java GC Tuning for Noobs: Part 1</a></li>
-        <li><a href="/java/gc/java-gc-tuning-generational.html">Java GC Tuning for Noobs Part 2: Generational</a></li>
-        <li><a href="/java/gc/java-gc-cms.html">GC Tuning for Noobs: Part 3, Parallelism</a></li>
-      </ul>
-    </small>
-  </div>
-)}
-{series === "dashboards" && (
-  <div class="well well-sm">
-    <p>This post is part of <em>A Practitioner's Guide to System Dashboard Design</em>.</p>
-    <ol>
-      <li><a href="/observability/dashboards/practitioners-guide-to-system-dashboard-design.html">Structure and Layout</a></li>
-      <li><a href="/observability/dashboards/practitioners-guide-to-system-dashboard-design-p2.html">Presentation and Accessibility</a></li>
-      <li><a href="/observability/dashboards/practitioners-guide-to-system-dashboard-design-p3.html">What Charts To Use</a></li>
-      <li><a href="/observability/dashboards/practitioners-guide-to-system-dashboard-design-p4.html">Context Improvement</a></li>
-      <li><a href="/observability/dashboards/dashboard-naming-and-organization.html">Naming and Organization</a></li>
-    </ol>
-  </div>
-)}
-{series === "automation" && (
-  <div class="well well-sm">
-    <p>This post is part of series on automation, the result of many months of research and reading. I may adjust these posts as my research grows. If you've got comments leave feedback at the bottom!</p>
-    <ul>
-      <li><a href="/automation/automation-is-hurting-you.html">Stop Hitting Yourself: How Automation Is Hurting You</a></li>
-      <li><a href="/automation/alternatives-to-automation.html">Alternatives to Automation: Amplification, Complexity, and Control</a></li>
-      <li><a href="/automation/improving-automation.html">Improving Automation: Working Together</a></li>
-    </ul>
-    <p>
-      Thanks to Arijit Mukherji, Franklin Hu, Jay Shirley, Rajesh Raman, and Sam Boyer for their feedback and reviews of these posts.
-    </p>
-  </div>
-)}
+<aside class:list={["series", "series--" + position]} aria-label={name + " series"}>
+  <p class="series__head label" style="color: var(--ink); font-style: normal">
+    <Icon name="layers" size={14} /> {name}{idx >= 0 && " · part " + (idx + 1) + " of " + parts.length}
+  </p>
+  <p>This post is part of {description}.</p>
+  <ol>
+    {parts.map((p, i) => (
+      i === idx
+        ? <li aria-current="page">{p.title}</li>
+        : <li><a href={p.url}>{p.title}</a></li>
+    ))}
+  </ol>
+  {note && <p class="series__note">{note}</p>}
+</aside>

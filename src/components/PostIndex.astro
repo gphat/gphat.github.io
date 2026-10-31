@@ -1,7 +1,9 @@
 ---
 // One page of the post list. Page 1 is /, the rest are /page2/, /page3/, …
-// (jekyll-paginate's paths, which old links still use).
+// (jekyll-paginate's paths, which old links still use). Five posts per page;
+// on page 1 the newest is the feature block and the other four are listed.
 import Base from "../layouts/Base.astro";
+import Icon from "./Icon.astro";
 import { fmtDate, getPosts, postPath, PER_PAGE } from "../lib/posts";
 
 interface Props {
@@ -10,35 +12,61 @@ interface Props {
 
 const { page } = Astro.props;
 const posts = await getPosts();
-const totalPages = Math.ceil(posts.length / PER_PAGE);
+const lastPage = Math.ceil(posts.length / PER_PAGE);
 const shown = posts.slice((page - 1) * PER_PAGE, page * PER_PAGE);
 const pagePath = (n: number) => (n === 1 ? "/" : `/page${n}/`);
+const prevUrl = page > 1 ? pagePath(page - 1) : undefined;
+const nextUrl = page < lastPage ? pagePath(page + 1) : undefined;
+
+const isFirst = page === 1;
+const lead = isFirst ? shown[0] : undefined;
+const list = isFirst ? shown.slice(1) : shown;
 ---
 <Base path={pagePath(page)}>
-  <p class="mb-3 prose prose-neutral lg:prose-lg dark:prose-invert prose-a:text-rose-500">I'm Cory, a senior infrastructure engineer based in Nashville, TN. I build reliable systems and think hard about the product experience around them — because great infra is nothing if nobody can use it.</p>
+  <div class="wrap">
+    {isFirst && (
+      <section class="intro" aria-label="About this site">
+        <p class="intro__mark t-display title-shadow" aria-label="One Mo' 'Gin">One mo'<br />'gin<sup aria-hidden="true">1</sup></p>
+        <p class="intro__gloss"><b>1</b> <em>'gin</em>, as in again. One more, again. Field notes on reliable systems, by Cory, in Nashville.</p>
+        <p class="intro__blurb">I'm Cory, a senior infrastructure engineer based in Nashville, TN. I build reliable systems and think hard about the product experience around them — because great infra is nothing if nobody can use it.</p>
+      </section>
+    )}
 
-  <h1 class="text-2xl font-bold">Posts</h1>
+    {lead && (
+      <article class="feature block block--mustard">
+        <span class="ht ht--wave" aria-hidden="true"></span>
+        <span class="label" style="color: inherit">Latest &middot; <time datetime={lead.data.date.toISOString()}>{fmtDate(lead.data.date)}</time></span>
+        <h2 class="feature__title t-display"><a href={postPath(lead)}>{lead.data.title}</a></h2>
+        {lead.data.summary && <p>{lead.data.summary} <a href={postPath(lead)}>Read it</a></p>}
+      </article>
+    )}
 
-  <ul class="-mx-3 mt-3 space-y-3">
-    {shown.map((post) => (
-      <li class="p-3 rounded-md hover:bg-gray-50 dark:hover:bg-zinc-950">
-        <a class="space-y-1.5" href={postPath(post)}>
-          <span class="border-l-2 pl-3 text-sm text-gray-400 border-gray-200 dark:border-zinc-700">{fmtDate(post.data.date)}</span>
-          <h3 class="text-lg font-semibold">{post.data.title}</h3>
-          {post.data.summary && <p class="text-gray-400 text-sm">{post.data.summary}</p>}
-          <p class="flex items-center text-rose-500">Read article →</p>
-        </a>
-      </li>
-    ))}
-  </ul>
+    <section class="post-list" aria-labelledby="posts-heading">
+      <div class="post-list__head">
+        <h2 id="posts-heading" class="label" style="margin:0; color: var(--ink)">{isFirst ? "And again…" : "Posts"}</h2>
+      </div>
+      <ol>
+        {list.map((p) => (
+          <li>
+            <time datetime={p.data.date.toISOString()}>{fmtDate(p.data.date)}</time>
+            <h3 class="post-list__title"><a href={postPath(p)}>{p.data.title}</a></h3>
+            {p.data.summary && <p class="post-list__summary">{p.data.summary}</p>}
+          </li>
+        ))}
+      </ol>
+    </section>
 
-  <nav class="mt-3 flex items-center justify-between border-t border-gray-200 dark:border-zinc-700 py-3 sm:px-6" aria-label="Pagination">
-    <p class="text-sm text-gray-700">Showing page <span class="font-medium">{page}</span> of <span class="font-medium">{totalPages}</span></p>
-    <div class="flex flex-1 justify-between sm:justify-end gap-3">
-      {page > 1 && <a href={pagePath(page - 1)} class="rounded-md px-3 py-2 text-sm font-semibold ring-1 ring-inset ring-gray-300 dark:ring-zinc-700">Previous</a>}
-      {page < totalPages && <a href={pagePath(page + 1)} class="rounded-md px-3 py-2 text-sm font-semibold ring-1 ring-inset ring-gray-300 dark:ring-zinc-700">Next</a>}
-    </div>
-  </nav>
+    <nav class="pagination" aria-label="Pagination">
+      <span>{prevUrl && <a class="prev" href={prevUrl}><Icon name="arrow-left" size={14} /> Newer</a>}</span>
+      <span class="status">Page {page} of {lastPage}</span>
+      <span class="next">{nextUrl && <a href={nextUrl}>Older <Icon name="arrow-right" size={14} /></a>}</span>
+    </nav>
 
-  <p class="my-3">Subscribe <a href="/feed.xml">via RSS</a></p>
+    {isFirst && (
+      <nav class="topics" aria-label="Topics">
+        <a class="block block--slate" href="/observability"><span class="ht" aria-hidden="true"></span><span class="t-head">Observability</span><small>since 2012 →</small></a>
+        <a class="block block--moss" href="/resilience"><span class="ht" aria-hidden="true"></span><span class="t-head">Resilience</span><small>since 2019 →</small></a>
+      </nav>
+    )}
+  </div>
 </Base>

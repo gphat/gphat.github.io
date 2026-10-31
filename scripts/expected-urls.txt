@@ -32,7 +32,6 @@
 /observability/
 /resilience/
 /feed.xml
-/css/main.css
 /assets/images/case-alerts.png
 /assets/images/case-logo.png
 /assets/images/cory-noggin.jpeg

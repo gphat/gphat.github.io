@@ -1,6 +1,8 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
+import { satteri } from "@astrojs/markdown-satteri";
+import { headingAnchors } from "./src/lib/headingAnchors.mjs";
 
 // https://astro.build/config
 export default defineConfig({
@@ -15,5 +17,16 @@ export default defineConfig({
   // Same reasoning as kapell-site: the compressor eats the word gap at a hard
   // wrap beside an inline tag.
   compressHTML: false,
+  markdown: {
+    // Astro 7's default Markdown processor. Its plugins are Sätteri hast
+    // plugins, not rehype ones (those would need the unified pipeline back).
+    processor: satteri({ hastPlugins: [headingAnchors()] }),
+    shikiConfig: {
+      // onemogin.css swaps to --shiki-dark when the page is in dark mode.
+      themes: { light: "everforest-light", dark: "everforest-dark" },
+      // Wide code (JVM flag dumps) scrolls, never wraps.
+      wrap: false,
+    },
+  },
   integrations: [sitemap()],
 });

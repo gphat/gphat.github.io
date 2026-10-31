@@ -1,4 +1,4 @@
-export const SITE_TITLE = "One Mo' Gin";
+export const SITE_TITLE = "One Mo' 'Gin";
 export const SITE_DESCRIPTION = "© Cory Watson. All rights reserved.";
 export const EMAIL = "cory@onemogin.com";
 export const GITHUB_USERNAME = "gphat";

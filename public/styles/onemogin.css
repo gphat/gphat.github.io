@@ -1,0 +1,430 @@
+/* ==========================================================================
+   One Mo' 'Gin — global stylesheet
+   Plain CSS, no build step. Served from /styles/onemogin.css.
+   Sections: 1 Fonts · 2 Tokens · 3 Base · 4 Utilities & print treatments
+             5 Shell (header/footer) · 6 Post index · 7 Post · 8 Series
+             9 Page · 10 Prose · 11 Shiki · 12 Legacy content
+   ========================================================================== */
+
+/* 1. Fonts ---------------------------------------------------------------- */
+/* Self-hosted: Parkly (licensed, SimpleBits) and Nordwand Mono (OFL), as woff2.
+   Source Serif 4 comes from Google Fonts as a variable font (see Base.astro).
+   A face is only downloaded when something on the page uses it, so every cut
+   is declared. font-synthesis: none (on html) means a weight or style without
+   a real face renders in the nearest real one, never a faked bold or oblique.
+
+   Parkly has one cut per width, each in a plain and a Soft (rounded) version.
+   Each cut is its own family; the weight is a range so no request for any
+   weight ever lands outside it. */
+@font-face { font-family: "Parkly";                 src: url("/fonts/Parkly-Regular.woff2") format("woff2");       font-weight: 1 1000; font-display: swap; }
+@font-face { font-family: "Parkly Soft";            src: url("/fonts/Parkly-Soft.woff2") format("woff2");          font-weight: 1 1000; font-display: swap; }
+@font-face { font-family: "Parkly Condensed";       src: url("/fonts/Parkly-Condensed.woff2") format("woff2");     font-weight: 1 1000; font-display: swap; }
+@font-face { font-family: "Parkly Condensed Soft";  src: url("/fonts/Parkly-CondensedSoft.woff2") format("woff2"); font-weight: 1 1000; font-display: swap; }
+@font-face { font-family: "Parkly Wide";            src: url("/fonts/Parkly-Wide.woff2") format("woff2");          font-weight: 1 1000; font-display: swap; }
+@font-face { font-family: "Parkly Wide Soft";       src: url("/fonts/Parkly-WideSoft.woff2") format("woff2");      font-weight: 1 1000; font-display: swap; }
+@font-face { font-family: "Parkly Extra Wide";      src: url("/fonts/Parkly-ExtraWide.woff2") format("woff2");     font-weight: 1 1000; font-display: swap; }
+@font-face { font-family: "Parkly Extra Wide Soft"; src: url("/fonts/Parkly-ExtraWideSoft.woff2") format("woff2"); font-weight: 1 1000; font-display: swap; }
+
+/* Nordwand Mono: nine weights, each with a true italic. Book (425) and Retina
+   (375) are the foundry's in-between weights; the numbers are the fonts' own. */
+@font-face { font-family: "Nordwand Mono"; src: url("/fonts/NordwandMono-Thin.woff2") format("woff2");              font-weight: 100; font-style: normal; font-display: swap; }
+@font-face { font-family: "Nordwand Mono"; src: url("/fonts/NordwandMono-ThinItalic.woff2") format("woff2");        font-weight: 100; font-style: italic; font-display: swap; }
+@font-face { font-family: "Nordwand Mono"; src: url("/fonts/NordwandMono-ExtraLight.woff2") format("woff2");        font-weight: 200; font-style: normal; font-display: swap; }
+@font-face { font-family: "Nordwand Mono"; src: url("/fonts/NordwandMono-ExtraLightItalic.woff2") format("woff2");  font-weight: 200; font-style: italic; font-display: swap; }
+@font-face { font-family: "Nordwand Mono"; src: url("/fonts/NordwandMono-Light.woff2") format("woff2");             font-weight: 300; font-style: normal; font-display: swap; }
+@font-face { font-family: "Nordwand Mono"; src: url("/fonts/NordwandMono-LightItalic.woff2") format("woff2");       font-weight: 300; font-style: italic; font-display: swap; }
+@font-face { font-family: "Nordwand Mono"; src: url("/fonts/NordwandMono-Retina.woff2") format("woff2");            font-weight: 375; font-style: normal; font-display: swap; }
+@font-face { font-family: "Nordwand Mono"; src: url("/fonts/NordwandMono-RetinaItalic.woff2") format("woff2");      font-weight: 375; font-style: italic; font-display: swap; }
+@font-face { font-family: "Nordwand Mono"; src: url("/fonts/NordwandMono-Regular.woff2") format("woff2");           font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Nordwand Mono"; src: url("/fonts/NordwandMono-Italic.woff2") format("woff2");            font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Nordwand Mono"; src: url("/fonts/NordwandMono-Book.woff2") format("woff2");              font-weight: 425; font-style: normal; font-display: swap; }
+@font-face { font-family: "Nordwand Mono"; src: url("/fonts/NordwandMono-BookItalic.woff2") format("woff2");        font-weight: 425; font-style: italic; font-display: swap; }
+@font-face { font-family: "Nordwand Mono"; src: url("/fonts/NordwandMono-Medium.woff2") format("woff2");            font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "Nordwand Mono"; src: url("/fonts/NordwandMono-MediumItalic.woff2") format("woff2");      font-weight: 500; font-style: italic; font-display: swap; }
+@font-face { font-family: "Nordwand Mono"; src: url("/fonts/NordwandMono-SemiBold.woff2") format("woff2");          font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "Nordwand Mono"; src: url("/fonts/NordwandMono-SemiBoldItalic.woff2") format("woff2");    font-weight: 600; font-style: italic; font-display: swap; }
+@font-face { font-family: "Nordwand Mono"; src: url("/fonts/NordwandMono-Bold.woff2") format("woff2");              font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Nordwand Mono"; src: url("/fonts/NordwandMono-BoldItalic.woff2") format("woff2");        font-weight: 700; font-style: italic; font-display: swap; }
+
+/* 2. Tokens --------------------------------------------------------------- */
+:root {
+  color-scheme: light;
+
+  /* Palette: "Lichen & Slate" — dusty earth, no orange/cream */
+  --paper:      oklch(0.948 0.006 130);   /* page */
+  --paper-2:    oklch(0.915 0.010 130);   /* code, table header, inline code */
+  --ink:        oklch(0.24 0.02 150);     /* text, rules */
+  --ink-2:      oklch(0.44 0.015 150);    /* secondary text, dates, captions */
+  --rule:       oklch(0.24 0.02 150 / 0.18);
+  --mustard:    oklch(0.78 0.10 95);      /* lead accent: feature block, title shadow, nav current */
+  --slate:      oklch(0.56 0.04 245);     /* Observability, info callouts */
+  --moss:       oklch(0.60 0.055 135);    /* Resilience, series shadow */
+  --madder:     oklch(0.52 0.07 12);      /* reserved: warnings/errors only */
+  --link:       oklch(0.42 0.06 245);     /* body links */
+  --link-wash:  oklch(0.78 0.10 95 / 0.35);
+  --on-dark:    oklch(0.97 0.004 130);    /* text on slate / ink blocks */
+  --on-light:   oklch(0.24 0.02 150);     /* text on mustard / moss blocks (same in both modes) */
+  --title-shadow: var(--mustard);
+  --ht-ink:     oklch(0.24 0.02 150);     /* halftone ink (always dark) */
+  --footer-bg:  oklch(0.24 0.02 150);
+
+  /* Type */
+  --font-display: "Parkly Wide Soft", "Parkly Soft", ui-rounded, system-ui, sans-serif;
+  --font-head:    "Parkly Soft", ui-rounded, system-ui, sans-serif;
+  --font-text:    "Source Serif 4", "Iowan Old Style", Georgia, serif;
+  --font-mono:    "Nordwand Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --step--2: 0.75rem;                                   /* 12  labels */
+  --step--1: 0.84375rem;                                /* 13.5 notes, captions, meta */
+  --step-0:  1.125rem;                                  /* 18  body */
+  --step-1:  1.375rem;                                  /* 22  h3, list titles, deck */
+  --step-2:  1.75rem;                                   /* 28  h2 */
+  --step-3:  clamp(2.25rem, 1.7rem + 2.2vw, 3rem);      /* 36–48 post/page title */
+  --step-4:  clamp(3rem, 2rem + 4.5vw, 4.5rem);         /* 48–72 wordmark */
+
+  /* Space & layout */
+  --s-1: 0.25rem; --s-2: 0.5rem; --s-3: 0.75rem; --s-4: 1rem; --s-5: 1.5rem; --s-6: 2rem; --s-7: 3rem; --s-8: 4rem;
+  --gutter:   clamp(1.25rem, 4vw, 2.5rem);
+  --wrap:     68rem;          /* 1088px max content */
+  --measure:  40rem;          /* 640px prose column (~68ch at 18px) */
+  --note-w:   12.5rem;        /* 200px margin-note column */
+  --note-gap: 2.5rem;
+  --hard:     4px;            /* hard-shadow offset for boxes */
+}
+
+/* Dark: follows the OS unless the toggle has set data-theme. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: oklch(0.21 0.014 150); --paper-2: oklch(0.255 0.016 150);
+    --ink: oklch(0.92 0.008 130); --ink-2: oklch(0.72 0.012 130); --rule: oklch(0.92 0.008 130 / 0.16);
+    --mustard: oklch(0.78 0.10 95); --slate: oklch(0.52 0.045 245); --moss: oklch(0.56 0.055 135);
+    --link: oklch(0.80 0.07 245); --link-wash: oklch(0.78 0.10 95 / 0.18);
+    --title-shadow: oklch(0.52 0.08 95); --footer-bg: oklch(0.15 0.012 150);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: oklch(0.21 0.014 150); --paper-2: oklch(0.255 0.016 150);
+  --ink: oklch(0.92 0.008 130); --ink-2: oklch(0.72 0.012 130); --rule: oklch(0.92 0.008 130 / 0.16);
+  --mustard: oklch(0.78 0.10 95); --slate: oklch(0.52 0.045 245); --moss: oklch(0.56 0.055 135);
+  --link: oklch(0.80 0.07 245); --link-wash: oklch(0.78 0.10 95 / 0.18);
+  --title-shadow: oklch(0.52 0.08 95); --footer-bg: oklch(0.15 0.012 150);
+}
+
+/* 3. Base ----------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+html {
+  background: var(--paper); color: var(--ink);
+  font: 400 var(--step-0)/1.65 var(--font-text);
+  font-optical-sizing: auto;
+  font-synthesis: none;
+  -webkit-text-size-adjust: 100%; text-rendering: optimizeLegibility;
+}
+body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
+main { flex: 1; }
+img, svg, video { max-width: 100%; }
+.icon { display: inline-block; flex: none; vertical-align: -0.15em; }
+
+/* Links are always clearly links: accent colour + underline.
+   Inside colour blocks they inherit colour and keep only the underline. */
+a { color: var(--link); text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 0.18em; text-decoration-skip-ink: auto; }
+a:hover { text-decoration-thickness: 3px; background: var(--link-wash); }
+a:has(img):hover { background: none; }
+:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
+
+.sr-only, .visually-hidden {
+  position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.wrap { width: 100%; max-width: var(--wrap); margin-inline: auto; padding-inline: var(--gutter); }
+
+/* 4. Utilities & print treatments ---------------------------------------- */
+.t-display { font-family: var(--font-display); font-weight: 400; text-transform: uppercase; line-height: 0.98; letter-spacing: 0; text-wrap: balance; margin: 0; }
+.t-head    { font-family: var(--font-head); font-weight: 400; text-transform: uppercase; line-height: 1.1; }
+.title-shadow { text-shadow: 0.085em 0.085em 0 var(--title-shadow); }   /* solid, no outline */
+.label { font-family: var(--font-head); font-size: var(--step--2); letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-2); display: inline-flex; gap: 0.4rem; align-items: center; }
+
+/* Hatched rule (also used for prose <hr>) */
+.rule-hatch { display: block; height: 10px; border: 0; margin: 0; color: var(--ink);
+  background: repeating-linear-gradient(45deg, currentColor 0 1.3px, transparent 1.3px 6px); }
+
+/* Colour blocks. Children sit above any .ht screen inside. */
+.block { position: relative; isolation: isolate; padding: var(--s-5) var(--s-5) var(--s-6); }
+.block > :not(.ht) { position: relative; z-index: 1; }
+.block a { color: inherit; }
+.block a:hover { background: none; }
+.block--mustard { background: var(--mustard); color: var(--on-light); }
+.block--moss    { background: var(--moss);    color: var(--on-light); }
+.block--slate   { background: var(--slate);   color: var(--on-dark); }
+.block--ink     { background: var(--footer-bg); color: var(--on-dark); }
+
+/* Halftone screens.
+   Markup: <span class="ht ht--dots" aria-hidden="true" style="--ht-ramp: ..."></span>
+   placed as the first child of a position:relative container.
+   How: a gradient (--ht-ramp) sets tone, a repeating cell (--ht-cell) sets the screen,
+   contrast(30) snaps it to hard edges, then ::after recolours the black to --ht-ink. */
+.ht { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; mix-blend-mode: multiply;
+  --ht-cell: radial-gradient(closest-side, #8c8c8c, #fff); --ht-size: 8px 8px;
+  --ht-ramp: linear-gradient(90deg, #777, #fff); }
+.ht::before { content: ""; position: absolute; inset: 0;
+  background: var(--ht-cell) 0 0 / var(--ht-size), var(--ht-ramp);
+  background-blend-mode: multiply; filter: contrast(30); }
+.ht::after { content: ""; position: absolute; inset: 0; background: var(--ht-ink); mix-blend-mode: lighten; }
+
+.ht--dots   { --ht-cell: radial-gradient(closest-side, #8c8c8c, #fff); --ht-size: 8px 8px; }
+.ht--dots45::before { background: radial-gradient(closest-side, #8c8c8c, #fff) 0 0 / 9px 9px, radial-gradient(closest-side, #8c8c8c, #fff) 4.5px 4.5px / 9px 9px, var(--ht-ramp); }
+.ht--vlines { --ht-cell: repeating-linear-gradient(90deg, #8c8c8c 0, #fff 4px, #8c8c8c 8px); --ht-size: auto; }
+.ht--hlines { --ht-cell: repeating-linear-gradient(0deg, #8c8c8c 0, #fff 3.5px, #8c8c8c 7px); --ht-size: auto; }
+.ht--angle  { --ht-cell: repeating-linear-gradient(60deg, #8c8c8c 0, #fff 4px, #8c8c8c 8px); --ht-size: auto; }
+.ht--wave   { --ht-cell: repeating-radial-gradient(circle at 130% -40%, #8c8c8c 0, #fff 4.5px, #8c8c8c 9px); --ht-size: auto; }
+.ht--grain  { --ht-size: 220px 220px;
+  --ht-cell: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.55' numOctaves='1'/%3E%3CfeColorMatrix values='.9 0 0 0 .3 .9 0 0 0 .3 .9 0 0 0 .3 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+/* Reverse: paper-coloured dots through a dark block (footer). */
+.ht--reverse { mix-blend-mode: screen; }
+.ht--reverse::before { filter: contrast(30) invert(1); }
+.ht--reverse::after { background: oklch(0.948 0.006 130 / 0.75); mix-blend-mode: multiply; }
+
+/* On paper in dark mode, flip ink dots to light dots. Screens on colour blocks stay ink. */
+:root[data-theme="dark"] .ht:not(.ht--reverse) { mix-blend-mode: screen; }
+:root[data-theme="dark"] .ht:not(.ht--reverse)::before { filter: contrast(30) invert(1); }
+:root[data-theme="dark"] .ht:not(.ht--reverse)::after { background: oklch(0.42 0.015 150); mix-blend-mode: darken; }
+/* ...but screens on colour blocks stay dark ink in both modes */
+:root[data-theme="dark"] .block .ht { mix-blend-mode: multiply; }
+:root[data-theme="dark"] .block .ht::before { filter: contrast(30); }
+:root[data-theme="dark"] .block .ht::after { background: var(--ht-ink); mix-blend-mode: lighten; }
+
+/* Framed icon marker (content-type icons on topic pages) */
+.marker { width: 2.125rem; height: 2.125rem; flex: none; display: inline-flex; align-items: center; justify-content: center;
+  border: 1.5px solid var(--ink); box-shadow: 2px 2px 0 var(--slate); color: var(--ink); }
+
+/* 5. Shell ---------------------------------------------------------------- */
+.site-header { border-bottom: 1.5px solid var(--ink); }
+.site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); padding-block: 1.1rem; flex-wrap: wrap; }
+.wordmark { font-family: var(--font-display); font-size: 1.0625rem; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+.wordmark:hover { background: none; text-decoration: underline; text-decoration-color: var(--mustard); text-decoration-thickness: 3px; text-underline-offset: 6px; }
+.site-nav { display: flex; align-items: center; gap: 1.4rem; }
+.site-nav ul { display: flex; gap: 1.4rem; list-style: none; margin: 0; padding: 0; }
+.site-nav a { font-family: var(--font-head); font-size: 0.8125rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+.site-nav a:hover, .site-nav a[aria-current="page"] { background: none; text-decoration: underline; text-decoration-color: var(--mustard); text-decoration-thickness: 3px; text-underline-offset: 6px; }
+.icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 2.25rem; height: 2.25rem; margin: -0.5rem;
+  color: var(--ink); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: none; }
+.icon-btn:hover { background: var(--link-wash); }
+.theme-toggle .icon-sun { display: none; }
+:root[data-theme="dark"] .theme-toggle .icon-sun { display: inline-block; }
+:root[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+
+.site-footer { position: relative; isolation: isolate; margin-top: var(--s-8); background: var(--footer-bg); color: var(--on-dark); font-size: 0.875rem; }
+.site-footer .ht { --ht-ramp: linear-gradient(270deg, #777 0%, #fff 55%); --ht-size: 7px 7px; }
+.site-footer .wrap { position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: center; gap: var(--s-4); flex-wrap: wrap; padding-block: 1.4rem; }
+.site-footer a { color: inherit; }
+.site-footer a:hover { background: none; }
+.site-footer .social { display: flex; gap: 1.1rem; list-style: none; margin: 0; padding: 0; }
+.site-footer .social a { display: inline-flex; padding: 0.25rem; }
+
+/* 6. Post index ----------------------------------------------------------- */
+.intro { display: grid; grid-template-columns: minmax(0, 1fr) 13rem; gap: var(--s-6); align-items: end; padding-top: var(--s-7); }
+.intro__mark { font-size: var(--step-4); line-height: 0.92; white-space: nowrap; }
+.intro__mark sup { font-family: var(--font-text); font-size: 1.25rem; color: var(--link); text-shadow: none; vertical-align: top; position: relative; top: 0.4em; }
+.intro__gloss { font-size: 0.875rem; line-height: 1.5; padding-top: var(--s-2); border-top: 2px solid var(--ink); }
+.intro__gloss b { color: var(--link); font-weight: 600; }
+.intro__blurb { grid-column: 1 / -1; max-width: var(--measure); font-size: var(--step-1); line-height: 1.5; margin: 0; text-wrap: pretty; }
+
+.feature { margin-top: var(--s-7); overflow: hidden; }
+.feature .ht { --ht-ramp: linear-gradient(250deg, #777 0%, #fff 60%); }
+.feature__title { font-size: clamp(1.75rem, 1.3rem + 1.8vw, 2.25rem); max-width: 30rem; margin: var(--s-3) 0; }
+.feature__title a { text-decoration: none; }
+.feature__title a:hover { text-decoration: underline; text-decoration-thickness: 3px; }
+.feature p { margin: 0; max-width: 28rem; }
+
+.post-list { margin-top: var(--s-6); }
+.post-list__head { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: var(--s-2); border-bottom: 2px solid var(--ink); }
+.post-list ol { list-style: none; margin: 0; padding: 0; }
+.post-list li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: var(--s-1) var(--s-5); padding-block: 0.9rem; border-bottom: 1px solid var(--rule); }
+.post-list li:last-child { border-bottom: 0; }
+.post-list time { font-style: italic; font-size: 0.875rem; color: var(--ink-2); padding-top: 0.2em; }
+.post-list__title { font-family: var(--font-head); font-size: 1.125rem; line-height: 1.2; text-transform: uppercase; margin: 0; }
+.post-list__title a { color: var(--ink); text-decoration: none; }        /* titles are obviously links; underline on hover */
+.post-list__title a:hover { background: none; text-decoration: underline; text-decoration-color: var(--mustard); text-decoration-thickness: 3px; }
+.post-list__summary { grid-column: 2; margin: 0; font-size: 1rem; line-height: 1.5; color: var(--ink-2); }
+
+.topics { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-3); margin-top: var(--s-6); }
+.topics a { display: flex; justify-content: space-between; align-items: flex-end; min-height: 5.5rem; padding: 1.1rem 1.25rem; text-decoration: none; overflow: hidden; }
+.topics a:hover { text-decoration: underline; }
+.topics .ht { --ht-cell: repeating-linear-gradient(90deg, #8c8c8c 0, #fff 4px, #8c8c8c 8px); --ht-size: auto; --ht-ramp: linear-gradient(90deg, #fff 40%, #777); }
+.topics .t-head { font-size: 1.1875rem; }
+.topics small { font-style: italic; font-size: 0.8125rem; white-space: nowrap; }
+
+.pagination { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: var(--s-4); margin-top: var(--s-6); padding-top: var(--s-4); border-top: 2px solid var(--ink); }
+.pagination a { font-family: var(--font-head); font-size: 0.8125rem; letter-spacing: 0.05em; text-transform: uppercase; display: inline-flex; gap: 0.4rem; align-items: center; }
+.pagination .next { justify-self: end; }
+.pagination .status { font-style: italic; font-size: 0.9375rem; color: var(--ink-2); }
+
+/* 7. Post ----------------------------------------------------------------- */
+/* The header isolates its blend group, so the screen needs a backdrop inside
+   it; without a background, multiply has nothing under it and paints white. */
+.post-header { position: relative; isolation: isolate; background: var(--paper); padding-block: var(--s-7) var(--s-5); overflow: hidden; }
+.post-header .ht { left: auto; width: min(22rem, 45%); --ht-ramp: radial-gradient(circle at 100% 0%, #777, #fff 70%); }
+.post-header > :not(.ht) { position: relative; z-index: 1; }
+.post-header h1 { font-size: var(--step-3); max-width: 36rem; margin-top: var(--s-3); }
+.post-header .deck { font-size: var(--step-1); font-style: italic; line-height: 1.4; margin: var(--s-4) 0 0; max-width: var(--measure); }
+
+.post-body { max-width: calc(var(--measure) + var(--note-w) + var(--note-gap)); padding-top: var(--s-6); }
+@media (min-width: 1100px) {
+  .post-body { padding-right: calc(var(--note-w) + var(--note-gap)); }
+  .post-body > .series--top { float: right; clear: right; width: var(--note-w); margin: 0 calc(-1 * (var(--note-w) + var(--note-gap))) var(--s-5) 0; }
+}
+.post-body > .series--top { margin-bottom: var(--s-6); }
+
+.post-end { clear: both; margin-top: var(--s-7); max-width: var(--measure); display: flex; flex-direction: column; gap: var(--s-5); }
+.post-actions { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-5); align-items: center; padding-top: var(--s-4); border-top: 2px solid var(--ink); }
+.post-actions a { display: inline-flex; gap: 0.4rem; align-items: center; }
+.post-actions .rss-cta { margin-left: auto; }
+
+/* 8. Series --------------------------------------------------------------- */
+.series { border: 1.5px solid var(--ink); box-shadow: var(--hard) var(--hard) 0 var(--moss); padding: 0.85rem 1rem 0.95rem; font-size: 0.9375rem; line-height: 1.5; background: var(--paper); }
+.series__head { margin: 0 0 0.35rem; }
+.series p { margin: 0 0 0.5rem; font-style: italic; color: var(--ink-2); font-size: 0.875rem; }
+.series ol { margin: 0; padding-left: 1.25em; }
+.series li + li { margin-top: 0.2rem; }
+.series li::marker { color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.series li[aria-current="page"] { font-weight: 600; }
+.series li[aria-current="page"]::after { content: " ← you are here"; font-weight: 400; font-style: italic; color: var(--ink-2); font-size: 0.8125rem; }
+.series .series__note { margin: 0.6rem 0 0; }
+
+/* 9. Page (About, Observability, Resilience) ------------------------------ */
+.page-header { position: relative; isolation: isolate; background: var(--paper); padding-block: var(--s-7) calc(var(--s-8) + var(--s-2)); overflow: hidden; }
+.page-header .ht { top: auto; height: 4rem; --ht-cell: repeating-linear-gradient(0deg, #8c8c8c 0, #fff 3.5px, #8c8c8c 7px); --ht-size: auto; --ht-ramp: linear-gradient(0deg, #777, #fff); }
+.page-header > :not(.ht) { position: relative; z-index: 1; }
+.page-header h1 { font-size: var(--step-3); margin-top: var(--s-3); overflow-wrap: anywhere; }
+.page-body { max-width: var(--measure); padding-top: var(--s-6); }
+
+/* 10. Prose (Markdown bodies — bare elements only) ------------------------- */
+.prose { font-size: var(--step-0); line-height: 1.65; overflow-wrap: break-word; }
+.prose > * { margin-block: 0; }
+.prose > * + * { margin-top: 1.1em; }
+.prose p { text-wrap: pretty; }
+.prose strong, .prose b { font-weight: 600; }
+
+/* Headings: # and ## both render as section headings inside a post. */
+.prose h1, .prose h2, .prose h3, .prose h4 { position: relative; font-family: var(--font-head); font-weight: 400; text-transform: uppercase; line-height: 1.1; scroll-margin-top: 1.5rem; text-wrap: balance; }
+.prose h1, .prose h2 { font-size: var(--step-2); margin-top: 2.1em; }
+.prose h3 { font-size: var(--step-1); margin-top: 1.8em; }
+.prose h4 { font-size: 1.0625rem; letter-spacing: 0.04em; margin-top: 1.6em; }
+.prose :is(h1, h2, h3, h4) + * { margin-top: 0.6em; }
+/* Anchor icon from rehype-autolink-headings (see README). GitHub-style: appears on hover in the left gutter. */
+.prose .anchor { position: absolute; left: -1.65rem; top: 50%; transform: translateY(-50%); display: inline-flex; padding: 0.2rem;
+  color: var(--link); opacity: 0; transition: opacity 0.15s; text-decoration: none; background: none; }
+.prose :is(h1, h2, h3, h4):hover .anchor, .prose .anchor:focus-visible { opacity: 1; }
+.prose .anchor svg { width: 1rem; height: 1rem; }
+@media (hover: none), (max-width: 46rem) { .prose .anchor { display: none; } }
+
+/* External links get a small arrow, no markup needed. */
+.prose a[href^="http"]:not([href*="onemogin.com"]):not(:has(img))::after {
+  content: ""; display: inline-block; width: 0.7em; height: 0.7em; margin-left: 0.12em; vertical-align: 0.02em;
+  background: currentColor; -webkit-mask: url("/icons/arrow-up-right.svg") center / contain no-repeat; mask: url("/icons/arrow-up-right.svg") center / contain no-repeat; }
+
+.prose ul, .prose ol { padding-left: 1.4em; }
+.prose ul { list-style: square; }
+.prose li::marker { color: var(--ink-2); }
+.prose li + li { margin-top: 0.35em; }
+.prose li > ul, .prose li > ol { margin-top: 0.35em; }
+
+.prose blockquote { margin: 1.7em 0; padding: 0.7em 0 0; border-top: 3px solid var(--mustard); font-size: var(--step-1); line-height: 1.45; font-style: italic; }
+.prose blockquote > * + * { margin-top: 0.7em; }
+.prose blockquote p { margin: 0; }
+
+.prose hr { height: 10px; border: 0; margin: 2.4em 0; color: var(--ink); background: repeating-linear-gradient(45deg, currentColor 0 1.3px, transparent 1.3px 6px); }
+
+.prose code { font-family: var(--font-mono); font-size: 0.86em; background: var(--paper-2); padding: 0.1em 0.32em; border-radius: 2px; }
+.prose pre { font-family: var(--font-mono); font-size: 0.875rem; line-height: 1.6; background: var(--paper-2); color: var(--ink);
+  border-top: 3px solid var(--ink); padding: 1rem 1.1rem; overflow-x: auto; max-width: 100%; tab-size: 2; white-space: pre; }
+.prose pre code { font-size: inherit; background: none; padding: 0; border-radius: 0; }
+/* Wide raw <pre> dumps (JVM flags) scroll; a soft edge hints there's more. */
+.prose pre:not(.astro-code) { scrollbar-width: thin; }
+
+/* Images followed by <br><em>caption</em> (no <figure>). */
+.prose img { height: auto; vertical-align: middle; }
+.prose p > img:only-child, .prose p > img:has(+ br + em), .prose p > a:only-child > img { display: inline-block; border: 1.5px solid var(--ink); box-shadow: 5px 5px 0 var(--moss); }
+.prose p:has(> img) { margin-top: 1.6em; }
+.prose img + br + em { display: block; margin-top: 0.75em; font-size: var(--step--1); line-height: 1.45; color: var(--ink-2); }
+
+.prose table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; font-size: 0.9375rem; line-height: 1.45; font-variant-numeric: tabular-nums; }
+.prose th { font-family: var(--font-head); font-weight: 400; font-size: 0.78rem; letter-spacing: 0.05em; text-transform: uppercase; text-align: left; border-bottom: 2px solid var(--ink); background: var(--paper-2); }
+.prose th, .prose td { padding: 0.55em 0.8em; vertical-align: top; }
+.prose td { border-bottom: 1px solid var(--rule); }
+
+/* Footnotes (remark-gfm: section[data-footnotes]; kramdown: div.footnotes). */
+.prose sup { line-height: 0; }
+.prose a[data-footnote-ref], .prose a.footnote { font-family: var(--font-text); font-weight: 600; text-decoration: none; padding: 0 0.1em; }
+.prose a[data-footnote-ref]:hover, .prose a.footnote:hover { text-decoration: underline; }
+.prose .footnotes { margin-top: var(--s-7); padding-top: var(--s-4); border-top: 2px solid var(--ink); font-size: var(--step--1); line-height: 1.5; color: var(--ink-2); }
+.prose .footnotes > h2, .prose #footnote-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; margin: 0; }
+.prose .footnotes ol { padding-left: 1.5em; }
+.prose .footnotes li::marker { color: var(--link); font-weight: 600; }
+.prose .footnotes li + li { margin-top: 0.5em; }
+.prose .footnotes p { margin: 0; }
+.prose a[data-footnote-backref], .prose a.reversefootnote { text-decoration: none; font-family: var(--font-text); margin-left: 0.2em; }
+
+/* Margin notes (progressive enhancement; script in Post.astro).
+   On >=1100px footnotes are cloned into the margin beside their paragraph;
+   the original list stays in the DOM for assistive tech but is hidden visually. */
+.sidenote { display: none; }
+@media (min-width: 1100px) {
+  .has-sidenotes .prose > .sidenote { display: block; float: right; clear: right; width: var(--note-w);
+    margin: 0.3em calc(-1 * (var(--note-w) + var(--note-gap))) 1em 0;
+    font-size: var(--step--1); line-height: 1.45; font-style: italic; color: var(--ink-2); }
+  .has-sidenotes .prose > .sidenote + * { margin-top: 0; }
+  .sidenote p { display: inline; margin: 0; }
+  .sidenote__num { font-style: normal; font-weight: 600; color: var(--link); margin-right: 0.25em; }
+  .has-sidenotes .footnotes { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+}
+
+/* Embeds */
+.prose iframe { max-width: 100%; border: 0; display: block; }
+.prose :is(blockquote.twitter-tweet, blockquote.imgur-embed-pub) {
+  font-style: normal; font-size: 1rem; line-height: 1.5; max-width: 34rem;
+  border: 1.5px solid var(--ink); box-shadow: var(--hard) var(--hard) 0 var(--slate); padding: 1rem 1.2rem; }
+.prose .twitter-tweet-rendered, .prose iframe.imgur-embed-iframe-pub { margin-inline: 0 !important; }
+
+/* 11. Shiki — everforest-light / everforest-dark (see astro.config snippet) */
+.prose pre.astro-code { background-color: var(--paper-2) !important; }
+:root[data-theme="dark"] .astro-code, :root[data-theme="dark"] .astro-code span {
+  color: var(--shiki-dark) !important; font-style: var(--shiki-dark-font-style) !important; font-weight: var(--shiki-dark-font-weight) !important; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .astro-code, :root:not([data-theme="light"]) .astro-code span {
+    color: var(--shiki-dark) !important; font-style: var(--shiki-dark-font-style) !important; font-weight: var(--shiki-dark-font-weight) !important; }
+}
+
+/* 12. Legacy content: Bootstrap callouts in GC posts (styled in place, no conversion needed) */
+.prose .panel { margin: 1.8em 0; border: 1.5px solid var(--ink); box-shadow: var(--hard) var(--hard) 0 var(--slate); background: var(--paper); }
+.prose .panel-heading { display: flex; gap: 0.5rem; align-items: center; padding: 0.55rem 0.9rem; border-bottom: 1.5px solid var(--ink);
+  font-family: var(--font-head); font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase; background: var(--slate); color: var(--on-dark); }
+.prose .panel-heading::before { content: ""; width: 1rem; height: 1rem; flex: none; background: currentColor;
+  -webkit-mask: url("/icons/info.svg") center / contain no-repeat; mask: url("/icons/info.svg") center / contain no-repeat; }
+.prose .panel-heading :is(h1, h2, h3, h4, h5, .panel-title) { font: inherit; text-transform: inherit; letter-spacing: inherit; margin: 0; }
+.prose .panel-body { padding: 0.9rem 1rem; font-size: 1rem; }
+.prose .panel-body > * + * { margin-top: 0.8em; }
+.prose .panel-body > :first-child { margin-top: 0; }
+.prose .panel-warning { box-shadow: var(--hard) var(--hard) 0 var(--mustard); }
+.prose .panel-warning .panel-heading { background: var(--mustard); color: var(--on-light); }
+.prose .panel-warning .panel-heading::before { -webkit-mask-image: url("/icons/triangle-alert.svg"); mask-image: url("/icons/triangle-alert.svg"); }
+.prose .panel-danger { box-shadow: var(--hard) var(--hard) 0 var(--madder); }
+.prose .panel-danger .panel-heading { background: var(--madder); color: var(--on-dark); }
+
+/* Responsive */
+@media (max-width: 46rem) {
+  .intro { grid-template-columns: 1fr; gap: var(--s-4); }
+  .intro__mark { white-space: normal; }
+  .post-list li { grid-template-columns: 1fr; }
+  .post-list__summary { grid-column: 1; }
+  .topics { grid-template-columns: 1fr; }
+  .site-nav { gap: 1rem; }
+  .site-nav ul { gap: 1rem; }
+}
+
+@media print {
+  .site-header nav, .site-footer, .ht, .theme-toggle, .post-actions { display: none !important; }
+  html { background: #fff; color: #000; }
+}

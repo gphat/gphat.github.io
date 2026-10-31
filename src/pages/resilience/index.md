@@ -1,5 +1,6 @@
 ---
 title: Resilience
+kicker: Topic · since 2019
 layout: ../../layouts/Page.astro
 ---
 

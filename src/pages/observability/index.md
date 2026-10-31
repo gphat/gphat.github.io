@@ -1,11 +1,12 @@
 ---
 title: Observability
+kicker: Topic · since 2012
 layout: ../../layouts/Page.astro
 ---
 
 Through my career as a software engineer, manager, and executive, observability has been a constant theme.
 
-[Observability](https://en.wikipedia.org/wiki/Observability) is more than monitoring and charts.** It's a collection of techniques and tools that deepen our understanding of complex systems — not just when things go wrong, but all the time.** The goal is to give operators genuine insight into how a system behaves: what changed, what's slow, what's correlated. Good observability improves the ergonomics of that understanding, making systems less surprising to the people who run them.
+[Observability](https://en.wikipedia.org/wiki/Observability) is more than monitoring and charts. **It's a collection of techniques and tools that deepen our understanding of complex systems — not just when things go wrong, but all the time.** The goal is to give operators genuine insight into how a system behaves: what changed, what's slow, what's correlated. Good observability improves the ergonomics of that understanding, making systems less surprising to the people who run them.
 
 # Open Source Work
 
