@@ -5,7 +5,7 @@
 import Base from "../layouts/Base.astro";
 import Icon from "./Icon.astro";
 import { fmtDate, getPosts, postPath, PER_PAGE } from "../lib/posts";
-import { TOPICS } from "../lib/topics";
+import { categoryTopic, TOPICS } from "../lib/topics";
 
 interface Props {
   page: number;
@@ -22,6 +22,13 @@ const nextUrl = page < lastPage ? pagePath(page + 1) : undefined;
 const isFirst = page === 1;
 const lead = isFirst ? shown[0] : undefined;
 const list = isFirst ? shown.slice(1) : shown;
+
+// The feature block wears its post's topic colour and screen, as its card
+// does; posts outside the topics get the lead teal and its rings.
+const leadTopicKey = lead && categoryTopic(lead.data.categories);
+const leadTopic = leadTopicKey ? TOPICS[leadTopicKey] : undefined;
+const leadColor = leadTopic?.color ?? "teal";
+const leadScreen = leadTopic?.screen ?? "wave";
 ---
 <Base path={pagePath(page)}>
   <div class="wrap">
@@ -34,8 +41,8 @@ const list = isFirst ? shown.slice(1) : shown;
     )}
 
     {lead && (
-      <article class="feature block block--teal">
-        <span class="ht ht--wave" aria-hidden="true"></span>
+      <article class={`feature block block--${leadColor}`}>
+        <span class={`ht ht--${leadScreen}`} aria-hidden="true"></span>
         <span class="label" style="color: inherit">Latest &middot; <time datetime={lead.data.date.toISOString()}>{fmtDate(lead.data.date)}</time></span>
         <h2 class="feature__title t-display"><a href={postPath(lead)}>{lead.data.title}</a></h2>
         {lead.data.summary && <p>{lead.data.summary} <a href={postPath(lead)}>Read it</a></p>}
