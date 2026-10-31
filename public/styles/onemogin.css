@@ -201,12 +201,18 @@ a:has(img):hover { background: none; }
    fades into the page above rather than to white. */
 .ht--reverse::after { background: var(--paper); mix-blend-mode: multiply; }
 
-/* On paper in dark mode, flip ink dots to light dots. Screens on colour blocks stay ink. */
+/* On paper in dark mode, flip ink dots to light dots. Colour blocks are below. */
 :root[data-theme="dark"] .ht:not(.ht--reverse) { mix-blend-mode: screen; }
 :root[data-theme="dark"] .ht:not(.ht--reverse)::before { filter: contrast(30) invert(1); }
 :root[data-theme="dark"] .ht:not(.ht--reverse)::after { background: oklch(0.42 0.015 150); mix-blend-mode: darken; }
-/* ...but on colour blocks the marks are the page colour, so a block fades into
-   the page around it. The marks are painted --paper on white and blended with
+/* On colour blocks the marks are the page colour, so a block fades into the
+   page around it. In light mode they're --paper on black, blended with
+   lighten: light paper is lighter than every block colour, so the marks come
+   out exactly --paper and the black leaves the block alone. */
+.block .ht { mix-blend-mode: lighten; }
+.block .ht::before { filter: contrast(30) invert(1); }
+.block .ht::after { background: var(--paper); mix-blend-mode: multiply; }
+/* Dark mode is the mirror image: --paper marks on white, blended with
    darken: dark paper is darker than every block colour in every channel, so the
    marks come out exactly --paper and the white leaves the block alone. */
 :root[data-theme="dark"] .block .ht { mix-blend-mode: darken; }

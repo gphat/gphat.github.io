@@ -2,9 +2,10 @@
 // site's colour blocks. Satori lays out the card and resvg rasterises it.
 //
 // Satori can't do the CSS halftones (they lean on blend modes and filters), so
-// each screen is drawn here as SVG, with the marks growing toward the right
-// edge as the site's ramps do. Colours are the light theme's oklch tokens from
-// public/styles/onemogin.css, in hex, since neither library reads oklch.
+// each screen is drawn here as SVG, its marks in the page's paper colour and
+// growing toward the top right corner, clear of the title. Colours are the
+// light theme's oklch tokens from public/styles/onemogin.css, in hex, since
+// neither library reads oklch.
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import satori from "satori";
@@ -43,49 +44,58 @@ export interface Card {
 
 // ---- Halftone screens --------------------------------------------------------
 
-// Ink coverage across the card: none until 40% of the way in, full at the edge.
-const ramp = (x: number, w: number) => Math.max(0, Math.min(1, (x / w - 0.4) / 0.6));
+// Coverage, 0–1: full in the top right corner, gone well before the bottom
+// left, where the label and title sit, as the post headers' screens do.
+function ramp(x: number, y: number, w: number, h: number): number {
+  const d = Math.hypot((w - x) / (w * 0.62), y / (h * 0.8));
+  return Math.max(0, Math.min(1, 1 - d));
+}
 const f = (n: number) => n.toFixed(1);
+
+// A band along a centre line whose width follows the ramp: a rule (horizontal)
+// or a bar (vertical) that swells toward the corner.
+function band(line: [number, number][], widths: number[], horizontal: boolean): string | undefined {
+  if (!widths.some((wd) => wd > 0.4)) return undefined;
+  const side = (sign: number) =>
+    line.map(([x, y], i) => (horizontal ? `${f(x)},${f(y + (sign * widths[i]) / 2)}` : `${f(x + (sign * widths[i]) / 2)},${f(y)}`));
+  return `<polygon points="${[...side(-1), ...side(1).reverse()].join(" ")}"/>`;
+}
 
 function screenMarks(screen: Screen, w: number, h: number): string {
   const out: string[] = [];
+  const push = (m: string | undefined) => m && out.push(m);
   if (screen === "dots45") {
     // Two offset grids of dots, the classic 45° screen.
     const cell = 16;
     for (let y = 0; y <= h + cell; y += cell / 2) {
       const odd = Math.round(y / (cell / 2)) % 2;
       for (let x = odd ? cell / 2 : 0; x <= w + cell; x += cell) {
-        const r = (cell / Math.SQRT2) * 0.5 * Math.sqrt(ramp(x, w)) * 1.15;
+        const r = (cell / Math.SQRT2) * 0.5 * Math.sqrt(ramp(x, y, w, h)) * 1.15;
         if (r > 0.4) out.push(`<circle cx="${f(x)}" cy="${f(y)}" r="${f(r)}"/>`);
       }
     }
-  } else if (screen === "hlines") {
-    // Rules that thicken to the right: wedges.
-    const pitch = 12;
-    const x0 = w * 0.4;
-    for (let y = pitch / 2; y < h; y += pitch) {
-      const half = (pitch * 0.9) / 2;
-      out.push(`<polygon points="${f(x0)},${f(y)} ${w},${f(y - half)} ${w},${f(y + half)}"/>`);
-    }
-  } else if (screen === "vlines") {
-    // Upright bars, wider the further right, like an equaliser.
-    const pitch = 14;
-    for (let x = 0; x < w; x += pitch) {
-      const bw = pitch * 0.9 * ramp(x + pitch / 2, w);
-      if (bw > 0.4) out.push(`<rect x="${f(x + (pitch - bw) / 2)}" y="0" width="${f(bw)}" height="${h}"/>`);
+  } else if (screen === "hlines" || screen === "vlines") {
+    // Gridline rules (hlines) or equaliser bars (vlines).
+    const horizontal = screen === "hlines";
+    const pitch = horizontal ? 12 : 14;
+    const [across, along] = horizontal ? [h, w] : [w, h];
+    for (let c = pitch / 2; c < across; c += pitch) {
+      const line: [number, number][] = [];
+      for (let t = 0; t <= along; t += 8) line.push(horizontal ? [t, c] : [c, t]);
+      push(band(line, line.map(([x, y]) => pitch * 0.9 * ramp(x, y, w, h)), horizontal));
     }
   } else if (screen === "grain") {
-    // Stipple, denser to the right. Seeded, so builds don't churn the image.
+    // Stipple. Seeded, so builds don't churn the image.
     let seed = 7;
     const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
     for (let i = 0; i < 14000; i++) {
       const x = rand() * w;
       const y = rand() * h;
-      if (rand() < ramp(x, w) * 0.85) out.push(`<circle cx="${f(x)}" cy="${f(y)}" r="${f(1.2 + rand() * 1.4)}"/>`);
+      if (rand() < ramp(x, y, w, h) * 1.2) out.push(`<circle cx="${f(x)}" cy="${f(y)}" r="${f(1.2 + rand() * 1.4)}"/>`);
     }
   } else {
     // Rings spreading from beyond the top right corner, as on the home page's
-    // feature block, drawn as short strokes that thicken to the right.
+    // feature block, drawn as short strokes that swell toward it.
     const cx = w * 1.3;
     const cy = -h * 0.4;
     const pitch = 15;
@@ -96,19 +106,19 @@ function screenMarks(screen: Screen, w: number, h: number): string {
         const x1 = cx + r * Math.cos(a), y1 = cy + r * Math.sin(a);
         const x2 = cx + r * Math.cos(a + step), y2 = cy + r * Math.sin(a + step);
         if (y1 < -pitch || y1 > h + pitch || x2 > w + pitch || x1 < -pitch) continue;
-        const sw = pitch * 0.85 * ramp((x1 + x2) / 2, w);
+        const sw = pitch * 0.85 * ramp((x1 + x2) / 2, (y1 + y2) / 2, w, h);
         if (sw > 0.4) strokes.push(`<line x1="${f(x1)}" y1="${f(y1)}" x2="${f(x2)}" y2="${f(y2)}" stroke-width="${f(sw)}"/>`);
       }
     }
-    return `<g stroke="#000" stroke-linecap="round">${strokes.join("")}</g>`;
+    return `<g stroke="currentColor" stroke-linecap="round">${strokes.join("")}</g>`;
   }
-  return `<g fill="#000">${out.join("")}</g>`;
+  return `<g fill="currentColor">${out.join("")}</g>`;
 }
 
 function screenImage(screen: Screen, w: number, h: number): string {
-  // Black at 40% stands in for the site's multiply blend: it darkens the block
-  // colour, whatever it is, the way the printed screen does.
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><g opacity="0.4">${screenMarks(screen, w, h)}</g></svg>`;
+  // The marks are the page's paper, so the block fades into the card around
+  // it, as the site's blocks fade into the page.
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><g color="${C.paper}">${screenMarks(screen, w, h)}</g></svg>`;
   return `data:image/svg+xml;base64,${Buffer.from(svg).toString("base64")}`;
 }
 
