@@ -206,18 +206,18 @@ a:has(img):hover { background: none; }
 :root[data-theme="dark"] .ht:not(.ht--reverse)::before { filter: contrast(30) invert(1); }
 :root[data-theme="dark"] .ht:not(.ht--reverse)::after { background: oklch(0.42 0.015 150); mix-blend-mode: darken; }
 /* On colour blocks the marks are the page colour, so a block fades into the
-   page around it. In light mode they're --paper on black, blended with
-   lighten: light paper is lighter than every block colour, so the marks come
-   out exactly --paper and the black leaves the block alone. */
-.block .ht { mix-blend-mode: lighten; }
-.block .ht::before { filter: contrast(30) invert(1); }
-.block .ht::after { background: var(--paper); mix-blend-mode: multiply; }
-/* Dark mode is the mirror image: --paper marks on white, blended with
-   darken: dark paper is darker than every block colour in every channel, so the
-   marks come out exactly --paper and the white leaves the block alone. */
-:root[data-theme="dark"] .block .ht { mix-blend-mode: darken; }
-:root[data-theme="dark"] .block .ht::before { filter: contrast(30); }
-:root[data-theme="dark"] .block .ht::after { background: var(--paper); mix-blend-mode: lighten; }
+   page around it, in both modes. Blend modes would work per colour channel and
+   leave coloured fringes on every half-covered pixel, and contrast(30) would
+   snap edges to whole pixels and band; instead the #ht-paper SVG filter
+   (Base.astro) turns the screen into --paper with a soft-edged alpha, drawn
+   normally over the block. */
+.ht-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+.ht-defs__paper { flood-color: var(--paper); }
+.block .ht,
+:root[data-theme="dark"] .block .ht { mix-blend-mode: normal; }
+.block .ht::before,
+:root[data-theme="dark"] .block .ht::before { filter: url(#ht-paper); }
+.block .ht::after { display: none; }
 
 /* Framed icon marker (content-type icons on topic pages) */
 .marker { width: 2.125rem; height: 2.125rem; flex: none; display: inline-flex; align-items: center; justify-content: center;

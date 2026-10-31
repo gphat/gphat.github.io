@@ -95,6 +95,17 @@ const markdownTwin = path.startsWith("/404")
     <link rel="preload" href="/fonts/Parkly-WideSoft.woff2" as="font" type="font/woff2" crossorigin />
   </head>
   <body>
+    <!-- The halftone filter for screens on colour blocks (see .block .ht in
+         onemogin.css): the screen's dark marks become --paper, everything
+         else transparent, with a threshold soft enough to keep antialiasing. -->
+    <svg class="ht-defs" width="0" height="0" aria-hidden="true" focusable="false">
+      <filter id="ht-paper" color-interpolation-filters="sRGB" x="0" y="0" width="1" height="1">
+        <feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -1 0 0 0 1" result="ink" />
+        <feComponentTransfer in="ink" result="mask"><feFuncA type="linear" slope="10" intercept="-4.5" /></feComponentTransfer>
+        <feFlood class="ht-defs__paper" />
+        <feComposite in2="mask" operator="in" />
+      </filter>
+    </svg>
     <a class="sr-only" href="#main">Skip to content</a>
     <header class="site-header">
       <div class="wrap">
