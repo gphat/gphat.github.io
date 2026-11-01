@@ -174,7 +174,7 @@ export async function renderCard(card: Card): Promise<Buffer> {
     h(
       "div",
       { height: 112, display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: `3px solid ${C.ink}`, marginBottom: 0 },
-      h("div", { fontFamily: "Beeswacks", fontSize: 38, color: C.ink }, "One 'Mo 'Gin"),
+      h("div", { fontFamily: "Beeswacks", fontSize: 38, color: C.ink }, "One Mo' 'Gin"),
       h("div", { fontFamily: "Nordwand Mono", fontSize: 24, color: C.ink2 }, "onemogin.com"),
     ),
     h(

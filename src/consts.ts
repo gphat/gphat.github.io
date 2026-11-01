@@ -1,4 +1,4 @@
-export const SITE_TITLE = "One 'Mo 'Gin";
+export const SITE_TITLE = "One Mo' 'Gin";
 // The meta description for pages without their own, and the feed's.
 export const SITE_DESCRIPTION = "Field notes on systems and sound, by Cory Watson.";
 // Link-preview cards (src/lib/og.ts), the size the big previews want.
