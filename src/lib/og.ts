@@ -133,7 +133,7 @@ async function font(file: string) {
 let fonts: Promise<Parameters<typeof satori>[1]["fonts"]> | undefined;
 const loadFonts = () =>
   (fonts ??= Promise.all([
-    font("Parkly-WideSoft").then((data) => ({ name: "Parkly Wide Soft", data, weight: 400 as const })),
+    font("Beeswacks-Regular").then((data) => ({ name: "Beeswacks", data, weight: 400 as const })),
     font("Parkly-Soft").then((data) => ({ name: "Parkly Soft", data, weight: 400 as const })),
     font("NordwandMono-Book").then((data) => ({ name: "Nordwand Mono", data, weight: 400 as const })),
   ]));
@@ -174,7 +174,7 @@ export async function renderCard(card: Card): Promise<Buffer> {
     h(
       "div",
       { height: 112, display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: `3px solid ${C.ink}`, marginBottom: 0 },
-      h("div", { fontFamily: "Parkly Wide Soft", fontSize: 34, color: C.ink, textTransform: "uppercase" }, "One 'Mo 'Gin"),
+      h("div", { fontFamily: "Beeswacks", fontSize: 38, color: C.ink }, "One 'Mo 'Gin"),
       h("div", { fontFamily: "Nordwand Mono", fontSize: 24, color: C.ink2 }, "onemogin.com"),
     ),
     h(
@@ -189,7 +189,7 @@ export async function renderCard(card: Card): Promise<Buffer> {
       h(
         "div",
         {
-          fontFamily: "Parkly Wide Soft", fontSize: size, lineHeight: 1.02, textTransform: "uppercase",
+          fontFamily: "Beeswacks", fontSize: size, lineHeight: 1.02,
           textShadow: `${f(size * 0.085)}px ${f(size * 0.085)}px 0 ${shadow}`, maxWidth: 960,
         },
         card.title,
