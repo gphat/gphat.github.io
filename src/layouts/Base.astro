@@ -26,6 +26,43 @@ const nav = Object.values(SECTIONS).map((t) => ({ href: t.href, label: t.label, 
 const isCurrent = (href: string) => path === href || path.startsWith(href + "/");
 const year = new Date().getFullYear();
 
+// schema.org structured data (JSON-LD), for search engines. Link unfurlers
+// read the Open Graph tags below instead.
+const author = {
+  "@type": "Person",
+  name: "Cory Watson",
+  url: new URL("/about/", Astro.site).href,
+  sameAs: [`https://github.com/${GITHUB_USERNAME}`, `https://linkedin.com/in/${LINKEDIN_USERNAME}`],
+};
+const website = { "@type": "WebSite", name: SITE_TITLE, url: Astro.site!.href, description: SITE_DESCRIPTION, author };
+const jsonLd = published
+  ? {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      headline: title,
+      description,
+      image: imageUrl.href,
+      datePublished: published.toISOString(),
+      url: canonical.href,
+      mainEntityOfPage: canonical.href,
+      author,
+      publisher: author,
+      isPartOf: website,
+    }
+  : path === "/"
+    ? { "@context": "https://schema.org", ...website }
+    : {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        name: title ?? SITE_TITLE,
+        description,
+        url: canonical.href,
+        image: imageUrl.href,
+        isPartOf: website,
+      };
+// Escape "<" so no string can close the script element early.
+const jsonLdText = JSON.stringify(jsonLd).replace(/</g, "\\u003c");
+
 // Every page but the 404 has a Markdown twin, written after the build by
 // src/integrations/markdownTwins.mjs: foo.html → foo.md, a directory → index.md.
 const markdownTwin = path.startsWith("/404")
@@ -85,6 +122,7 @@ const markdownTwin = path.startsWith("/404")
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={imageUrl} />
     <meta name="twitter:image:alt" content={imageAlt} />
+    <script is:inline type="application/ld+json" set:html={jsonLdText} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
