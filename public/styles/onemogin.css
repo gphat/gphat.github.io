@@ -24,6 +24,7 @@
 @font-face { font-family: "Parkly Wide Soft";       src: url("/fonts/Parkly-WideSoft.woff2") format("woff2");      font-weight: 1 1000; font-display: swap; }
 @font-face { font-family: "Parkly Extra Wide";      src: url("/fonts/Parkly-ExtraWide.woff2") format("woff2");     font-weight: 1 1000; font-display: swap; }
 @font-face { font-family: "Parkly Extra Wide Soft"; src: url("/fonts/Parkly-ExtraWideSoft.woff2") format("woff2"); font-weight: 1 1000; font-display: swap; }
+@font-face { font-family: "Beeswacks";              src: url("/fonts/Beeswacks-Regular.woff2") format("woff2");    font-weight: 400; font-display: swap; }
 
 /* Nordwand Mono: nine weights, each with a true italic. Book (425) and Retina
    (375) are the foundry's in-between weights; the numbers are the fonts' own. */
@@ -75,7 +76,7 @@
   --footer-bg:  oklch(0.24 0.02 150);
 
   /* Type */
-  --font-display: "Parkly Wide Soft", "Parkly Soft", ui-rounded, system-ui, sans-serif;
+  --font-display: "Beeswacks", "Parkly Wide Soft", "Parkly Soft", ui-rounded, system-ui, sans-serif;
   --font-head:    "Parkly Soft", ui-rounded, system-ui, sans-serif;
   --font-text:    "Source Serif 4", "Iowan Old Style", Georgia, serif;
   --font-mono:    "Nordwand Mono", ui-monospace, "SF Mono", Menlo, monospace;
@@ -152,7 +153,7 @@ a:has(img):hover { background: none; }
 .wrap { width: 100%; max-width: var(--wrap); margin-inline: auto; padding-inline: var(--gutter); }
 
 /* 4. Utilities & print treatments ---------------------------------------- */
-.t-display { font-family: var(--font-display); font-weight: 400; text-transform: uppercase; line-height: 0.98; letter-spacing: 0; text-wrap: balance; margin: 0; }
+.t-display { font-family: var(--font-display); font-weight: 400; line-height: 0.98; letter-spacing: 0; text-wrap: balance; margin: 0; }
 .t-head    { font-family: var(--font-head); font-weight: 400; text-transform: uppercase; line-height: 1.1; }
 .title-shadow { text-shadow: 0.085em 0.085em 0 var(--title-shadow); }   /* solid, no outline */
 .label { font-family: var(--font-head); font-size: var(--step--2); letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-2); display: inline-flex; gap: 0.4rem; align-items: center; }
@@ -228,7 +229,7 @@ a:has(img):hover { background: none; }
 /* 5. Shell ---------------------------------------------------------------- */
 .site-header { border-bottom: 1.5px solid var(--ink); }
 .site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); padding-block: 1.1rem; flex-wrap: wrap; }
-.wordmark { font-family: var(--font-display); font-size: 1.0625rem; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+.wordmark { font-family: var(--font-display); font-size: 1.0625rem; color: var(--ink); text-decoration: none; }
 .wordmark:hover { background: none; text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 3px; text-underline-offset: 6px; }
 .site-nav { display: flex; align-items: center; gap: 1.4rem; }
 .site-nav ul { display: flex; gap: 1.4rem; list-style: none; margin: 0; padding: 0; }

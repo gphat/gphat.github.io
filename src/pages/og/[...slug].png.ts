@@ -29,7 +29,7 @@ export const getStaticPaths = (async () => {
   }
   cards.push({
     slug: "home",
-    card: { label: ["Field notes on systems and sound"], title: "One Mo' 'Gin", color: "teal", screen: "wave" },
+    card: { label: ["Field notes on systems and sound"], title: "One 'Mo 'Gin", color: "teal", screen: "wave" },
   });
   return cards.map(({ slug, card }) => ({ params: { slug }, props: { card } }));
 }) satisfies GetStaticPaths;
