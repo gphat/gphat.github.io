@@ -227,11 +227,10 @@ a:has(img):hover { background: none; }
   border: 1.5px solid var(--ink); box-shadow: 2px 2px 0 var(--slate); color: var(--ink); }
 
 /* 5. Shell ---------------------------------------------------------------- */
-.site-header { border-bottom: 1.5px solid var(--ink); }
 .site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); padding-block: 1.1rem; flex-wrap: wrap; }
 .wordmark { font-family: var(--font-display); font-size: 1.0625rem; color: var(--ink); text-decoration: none; }
 .wordmark:hover { background: none; text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 3px; text-underline-offset: 6px; }
-.site-nav { display: flex; align-items: center; gap: 1.4rem; }
+.site-nav { display: flex; align-items: center; gap: 1.4rem; margin-left: auto; }
 .site-nav ul { display: flex; gap: 1.4rem; list-style: none; margin: 0; padding: 0; }
 .site-nav a { font-family: var(--font-head); font-size: 0.8125rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
 .site-nav, .site-nav ul { flex-wrap: wrap; row-gap: 0.6rem; }
@@ -268,9 +267,7 @@ a:has(img):hover { background: none; }
 .intro { display: grid; grid-template-columns: minmax(0, 1fr) 13rem; gap: var(--s-6); align-items: end; padding-top: var(--s-7); }
 /* One line, always: it shrinks with the viewport rather than wrapping. */
 .intro__mark { font-size: min(var(--step-4), 12vw); line-height: 0.92; white-space: nowrap; }
-.intro__mark sup { font-family: var(--font-text); font-size: 2rem; color: var(--link); text-shadow: none; vertical-align: top; position: relative; top: 0.4em; }
 .intro__gloss { font-size: 0.875rem; line-height: 1.5; padding-top: var(--s-2); border-top: 2px solid var(--ink); }
-.intro__gloss b { color: var(--link); font-weight: 600; }
 .intro__blurb { grid-column: 1 / -1; max-width: var(--measure); font-size: var(--step-1); line-height: 1.5; margin: 0; text-wrap: pretty; }
 
 .feature { margin-top: var(--s-7); overflow: hidden; }
