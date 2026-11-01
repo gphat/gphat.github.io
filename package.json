@@ -22,5 +22,8 @@
     "satori": "0.33.5",
     "turndown": "7.2.4",
     "wawoff2": "2.0.1"
+  },
+  "overrides": {
+    "fflate": "0.7.5"
   }
 }
