@@ -74,6 +74,9 @@ const markdownTwin = path.startsWith("/404")
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- The site has its own light and dark themes: Safari's Adaptive Dark Mode
+         leaves it alone, and native controls match. -->
+    <meta name="color-scheme" content="light dark" />
 
     <!-- Set theme before paint: stored choice, else OS preference. -->
     <script is:inline>

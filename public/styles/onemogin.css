@@ -112,6 +112,11 @@
   --radius-sm: 3px;           /* corners of chips and small tiles */
 }
 
+/* Both themes are the site's own (see the color-scheme meta in Base.astro).
+   The toggle's light choice pins native controls light; dark sets its own below. */
+:root { color-scheme: light dark; }
+:root[data-theme="light"] { color-scheme: light; }
+
 /* Dark: follows the OS unless the toggle has set data-theme. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
