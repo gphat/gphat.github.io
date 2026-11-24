@@ -16,6 +16,17 @@ function stripAnchors(html: string): string {
   return html.replace(/<a class="anchor"[^>]*>[\s\S]*?<\/a>/g, "");
 }
 
+// Inline SVG diagrams draw in the site's CSS variables, which a reader doesn't
+// have, so they come out as black shapes or nothing. Swap each for a link to
+// the post, described by the diagram's own <title>.
+function replaceDiagrams(html: string, link: string): string {
+  return html.replace(/<svg[\s\S]*?<\/svg>/g, (svg) => {
+    const title = svg.match(/<title[^>]*>([\s\S]*?)<\/title>/)?.[1]?.trim();
+    const what = title ? `: ${title}` : "";
+    return `<p><em><a href="${link}">Diagram on the site</a>${what}</em></p>`;
+  });
+}
+
 // Same shape as the Jekyll feed: the ten newest posts, full HTML in
 // <description>, link and guid on FEED_ORIGIN (see consts.ts for why it's http).
 export async function GET(context: APIContext) {
@@ -28,7 +39,9 @@ export async function GET(context: APIContext) {
       title: post.data.title,
       pubDate: post.data.date,
       link: `${FEED_ORIGIN}${postPath(post)}`,
-      description: absolutise(stripAnchors(post.rendered?.html ?? "")),
+      description: absolutise(
+        replaceDiagrams(stripAnchors(post.rendered?.html ?? ""), `${FEED_ORIGIN}${postPath(post)}`),
+      ),
       categories: post.data.categories,
     })),
     customData: `<lastBuildDate>${new Date().toUTCString()}</lastBuildDate>`,
